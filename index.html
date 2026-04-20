@@ -828,29 +828,40 @@
       <div class="contact-item">
         <div class="contact-icon">📍</div>
         <div>
-          <h4>Location</h4>
-          <p>Coimbatore, Tamil Nadu<br>India</p>
+          <h4>Address</h4>
+          <p>107, Ranga Konar St, Kattoor Main, Kattoor, Ram Nagar<br>Coimbatore, Tamil Nadu 641009</p>
         </div>
       </div>
       <div class="contact-item">
         <div class="contact-icon">📞</div>
         <div>
-          <h4>Phone</h4>
-          <p>+91 XXXXX XXXXX</p>
+          <h4>Phone / WhatsApp</h4>
+          <p>
+            <a href="tel:+917200575352" style="color:inherit;text-decoration:underline;">+91 7200575352</a><br>
+            <a href="tel:+918838006319" style="color:inherit;text-decoration:underline;">+91 8838006319</a><br>
+            WhatsApp: <a href="https://wa.me/918838006319" style="color:inherit;text-decoration:underline;">+91 8838006319</a>
+          </p>
+          <p style="font-size:13px;color:rgba(0,0,0,0.65);margin-top:6px;">Available for quick enquiries and bulk order discussions</p>
         </div>
       </div>
       <div class="contact-item">
         <div class="contact-icon">✉️</div>
         <div>
           <h4>Email</h4>
-          <p>info@crescentsyndicate.com</p>
+          <p><a href="mailto:crescent.syn53@gmail.com" style="color:inherit;text-decoration:underline;">crescent.syn53@gmail.com</a></p>
         </div>
       </div>
       <div class="contact-item">
         <div class="contact-icon">🕐</div>
         <div>
           <h4>Hours</h4>
-          <p>Mon – Sat : 9:00 AM – 7:00 PM</p>
+          <p>Monday – Saturday<br>9:00 AM – 8:00 PM IST</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        
+        <div>
+         
         </div>
       </div>
     </div>
@@ -920,9 +931,10 @@
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="#">Coimbatore, TN</a></li>
-        <li><a href="#">+91 XXXXX XXXXX</a></li>
-        <li><a href="#">info@crescentsyndicate.com</a></li>
+        <li><a href="#">107, Ranga Konar St, Kattoor Main, Kattoor, Ram Nagar, Coimbatore 641009</a></li>
+        <li><a href="tel:+917200575352">+91 7200575352</a></li>
+        <li><a href="tel:+918838006319">+91 8838006319</a></li>
+        <li><a href="mailto:crescent.syn53@gmail.com">crescent.syn53@gmail.com</a></li>
       </ul>
     </div>
   </div>
@@ -950,10 +962,46 @@
     document.getElementById('prod-count').textContent = count;
   }
 
-  // Show all products on load
+  // Show all products on load and wire up enquire buttons
   document.addEventListener('DOMContentLoaded', () => {
+    // show products and update count
     document.querySelectorAll('.product-card').forEach(c => c.classList.add('visible'));
     document.getElementById('prod-count').textContent = document.querySelectorAll('.product-card').length;
+
+    // Initialize EmailJS with your public key
+    try {
+      if (window.emailjs && typeof emailjs.init === 'function') {
+        emailjs.init('5ECfo5zCJXqi5D_qw');
+      }
+    } catch (err) { console.warn('EmailJS init skipped', err); }
+
+    // Prefill contact form when a product's Enquire link is clicked
+    document.querySelectorAll('.product-enquire').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const card = btn.closest('.product-card');
+        const name = card ? (card.querySelector('.product-name')?.textContent || '').trim() : '';
+        const productSelect = document.querySelector('form.contact-form select[name="product"]');
+        if (productSelect && name) {
+          // try to find matching option
+          let opt = Array.from(productSelect.options).find(o => o.textContent.trim() === name);
+          if (!opt) {
+            // insert as first option
+            opt = document.createElement('option');
+            opt.text = name;
+            opt.value = name;
+            productSelect.add(opt, productSelect.options[0]);
+          }
+          productSelect.value = opt.value;
+        }
+        // scroll to contact
+        const contactEl = document.getElementById('contact');
+        if (contactEl) contactEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // focus name input
+        const nameInput = document.querySelector('form.contact-form input[name="name"]');
+        if (nameInput) nameInput.focus();
+      });
+    });
   });
 
   // Mobile menu toggle
@@ -962,11 +1010,28 @@
     links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
   }
 
-  // Contact form (EmailJS placeholder)
+  // Contact form — sends with EmailJS when configured
+  // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' and call emailjs.init('YOUR_PUBLIC_KEY') above
   function sendEmail(e) {
     e.preventDefault();
-    alert('Thank you! Your message has been received. We will get back to you within 24 hours.');
-    e.target.reset();
+    const form = e.target;
+    const serviceID = 'service_pm4hali';
+    const templateID = 'template_yo4sxek';
+
+    if (window.emailjs && typeof emailjs.sendForm === 'function') {
+      emailjs.sendForm(serviceID, templateID, form)
+        .then(function() {
+          alert('Thank you — your message was sent successfully.');
+          form.reset();
+        }, function(error) {
+          console.error('EmailJS error:', error);
+          alert('Failed to send message. Please try again or contact us at crescent.syn53@gmail.com');
+        });
+    } else {
+      // Fallback: inform user to configure EmailJS
+      alert('Email service is not configured. Please add your EmailJS keys to the script.');
+      // keep form data so user can copy/paste
+    }
     return false;
   }
 </script>
