@@ -272,8 +272,9 @@
     position: relative;
   }
   .product-img-wrap img {
-    max-width: 85%; max-height: 85%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.4s ease;
     mix-blend-mode: multiply;
   }
@@ -590,10 +591,10 @@
       </div>
     </div>
     <div class="about-visual">
-      <div class="about-visual-inner">
-        <div class="about-icon">🏗️</div>
-        <div class="about-visual-text">Since Day One</div>
-        <div style="font-size:13px;color:rgba(200,147,10,0.4);letter-spacing:2px;">QUALITY · TRUST · SAFETY</div>
+      <div class="about-visual-inner" style="background:rgba(255,255,255,0.85);border:2px solid #C8920A;box-shadow:0 4px 32px #C8920A44,0 1px 8px #fff8; border-radius:18px;">
+        <div class="about-icon" style="color:#C8920A;opacity:0.5;">🏗️</div>
+        <div class="about-visual-text" style="color:#C8920A;opacity:1;font-weight:700;text-shadow:0 1px 8px #fff8,0 0 2px #C8920A;">Since Day One</div>
+        <div style="font-size:15px;color:#C8920A;font-weight:600;letter-spacing:2px;text-shadow:0 1px 8px #fff8,0 0 2px #C8920A;">QUALITY · TRUST · SAFETY</div>
       </div>
     </div>
   </div>
@@ -616,14 +617,14 @@
     <button class="tab" onclick="filterProducts('couplers', this)">Couplers & Clamps</button>
     <button class="tab" onclick="filterProducts('jacks', this)">Jacks & Support</button>
     <button class="tab" onclick="filterProducts('nuts', this)">Nuts, Bolts & Pins</button>
-    <button class="tab" onclick="filterProducts('accessories', this)">Accessories</button>
+
   </div>
-  <p class="products-count">Showing <span id="prod-count">10</span> products</p>
+  <p class="products-count">Showing <span id="prod-count">31</span> products</p>
   <div class="products-grid" id="productsGrid">
 
   <div class="product-card" data-cat="featured">
     <div class="product-img-wrap">
-      <div class="product-icon">🔩</div>
+      <img src="products/tie rod.webp" alt="Tie Rod">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Featured</span>
@@ -741,6 +742,222 @@
     </div>
   </div>
 
+  <div class="product-card" data-cat="couplers">
+    <div class="product-img-wrap">
+      <div class="product-icon">🔄</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Couplers & Clamps</span>
+      <h3 class="product-name">Forge Swivel</h3>
+      <p class="product-desc">Rotating forged swivel coupler allowing 360° connection between scaffold tubes. Enables angular adjustments while maintaining structural integrity. Ideal for complex scaffolding configurations.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="couplers">
+    <div class="product-img-wrap">
+      <div class="product-icon">🏗️</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Couplers & Clamps</span>
+      <h3 class="product-name">Girder Clamp</h3>
+      <p class="product-desc">Heavy-duty girder clamp designed for attaching scaffolding to steel beams and girders. Provides secure fixation without damaging structural steel. Perfect for industrial and bridge construction.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="couplers">
+    <div class="product-img-wrap">
+      <div class="product-icon">🔩</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Couplers & Clamps</span>
+      <h3 class="product-name">Sleeve Coupler</h3>
+      <p class="product-desc">Internal sleeve coupler for joining two scaffold tubes end-to-end in a straight line. Provides seamless connection with full load transfer. Common for extending ledger and brace lengths.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="couplers">
+    <div class="product-img-wrap">
+      <div class="product-icon">📋</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Couplers & Clamps</span>
+      <h3 class="product-name">Sheet Fix</h3>
+      <p class="product-desc">Specialized clamp for securing sheet materials to scaffolding structures. Used for attaching temporary walls, safety screens, and debris nets. Quick-release mechanism for easy installation and removal.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="couplers">
+    <div class="product-img-wrap">
+      <div class="product-icon">🔃</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Couplers & Clamps</span>
+      <h3 class="product-name">GOGO Clamp</h3>
+      <p class="product-desc">Versatile GOGO clamp for quick tube-to-tube connections in scaffolding. Lightweight yet durable, ideal for temporary structures and event staging. Easy to assemble and disassemble.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="couplers">
+    <div class="product-img-wrap">
+      <div class="product-icon">💧</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Couplers & Clamps</span>
+      <h3 class="product-name">Water Stopper</h3>
+      <p class="product-desc">Rubber-based water stopper for formwork applications. Prevents water leakage at construction joints. Essential for waterproof concrete structures and basement construction.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="jacks">
+    <div class="product-img-wrap">
+      <div class="product-icon">🔧</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Jacks & Support</span>
+      <h3 class="product-name">Prop Sleeve</h3>
+      <p class="product-desc">Adjustable prop sleeve for extending scaffolding props and support systems. Allows fine height adjustments for precise formwork alignment. Galvanized for corrosion resistance.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="jacks">
+    <div class="product-img-wrap">
+      <div class="product-icon">📏</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Jacks & Support</span>
+      <h3 class="product-name">U Head Jack</h3>
+      <p class="product-desc">U-shaped head jack for supporting formwork beams and slab tables. Provides stable bearing surface for wooden or steel beams. Adjustable for precise height control.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="jacks">
+    <div class="product-img-wrap">
+      <div class="product-icon">⬇️</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Jacks & Support</span>
+      <h3 class="product-name">Base Jack</h3>
+      <p class="product-desc">Sturdy base jack for distributing load from vertical props to the ground. Threaded adjustment mechanism for height fine-tuning. Base plate prevents sinking into soft soil.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="jacks">
+    <div class="product-img-wrap">
+      <div class="product-icon">📍</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Jacks & Support</span>
+      <h3 class="product-name">Spigot Pin</h3>
+      <p class="product-desc">Connecting pin for joining scaffold tubes at spigot joints. Ensures secure tube-to-tube connection in system scaffolding. Quick insertion for fast assembly.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="jacks">
+    <div class="product-img-wrap">
+      <div class="product-icon">📐</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Jacks & Support</span>
+      <h3 class="product-name">LT Prop</h3>
+      <p class="product-desc">Light-duty telescopic prop for temporary support during construction. Adjustable height range for various support requirements. Ideal for slab props and beam supporting.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="nuts">
+    <div class="product-img-wrap">
+      <div class="product-icon">📌</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+      <h3 class="product-name">Stub Pin With Wedge</h3>
+      <p class="product-desc">Stub pin with integrated wedge for secure locking in cuplock and system scaffolding. Provides tamper-resistant connection. Wedge mechanism ensures tight fit.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="nuts">
+    <div class="product-img-wrap">
+      <div class="product-icon">⚙️</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+      <h3 class="product-name">Gugu Machine</h3>
+      <p class="product-desc">Industrial Gugu machine for forming and fixing scaffolding components. Used for pressing and shaping metal parts. Essential for custom scaffolding solutions.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="nuts">
+    <div class="product-img-wrap">
+      <div class="product-icon">🔩</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+      <h3 class="product-name">Flip Pin</h3>
+      <p class="product-desc">Spring-loaded flip pin for quick insertion and removal in scaffolding connections. Enables fast assembly without tools. Used in cuplock and frame scaffolding systems.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="nuts">
+    <div class="product-img-wrap">
+      <div class="product-icon">🔧</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+      <h3 class="product-name">Span Bolt</h3>
+      <p class="product-desc">High-strength span bolt for securing formwork and shuttering panels. Threaded design for precise tightening. Available in various lengths for different panel thicknesses.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="nuts">
+    <div class="product-img-wrap">
+      <div class="product-icon">📏</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+      <h3 class="product-name">Shuttering Clamp</h3>
+      <p class="product-desc">Formwork shuttering clamp for joining and tightening formwork panels. Provides rigid connection between adjacent panels. Quick-release lever for easy stripping.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="nuts">
+    <div class="product-img-wrap">
+      <div class="product-icon">🔗</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+      <h3 class="product-name">Joint Pin</h3>
+      <p class="product-desc">Internal joint pin for connecting two scaffold tubes at couplings. Inserts inside tube ends for seamless connection. Ensures smooth outer surface without protrusions.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
+  <div class="product-card" data-cat="nuts">
+    <div class="product-img-wrap">
+      <div class="product-icon">🔩</div>
+    </div>
+    <div class="product-info">
+      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+      <h3 class="product-name">Prop Nut</h3>
+      <p class="product-desc">Hexagonal prop nut for securing adjustable props and jacks. Fits standard prop threads for reliable height locking. Zinc-plated for rust resistance.</p>
+      <a href="#contact" class="product-enquire">Enquire →</a>
+    </div>
+  </div>
+
 </div>
 </section>
 
@@ -797,19 +1014,19 @@
   <div class="section-tag">Industries We Serve</div>
   <h2>Trusted Across <em>Sectors</em></h2>
   <div class="industries-grid">
-    <div class="industry-card" data-label="View More">
+    <div class="industry-card">
       <span class="industry-icon">🏗️</span>
       <h3>Construction</h3>
     </div>
-    <div class="industry-card" data-label="View More">
+    <div class="industry-card">
       <span class="industry-icon">🏢</span>
       <h3>Real Estate</h3>
     </div>
-    <div class="industry-card" data-label="View More">
+    <div class="industry-card">
       <span class="industry-icon">🏭</span>
       <h3>Industrial</h3>
     </div>
-    <div class="industry-card" data-label="View More">
+    <div class="industry-card">
       <span class="industry-icon">🌉</span>
       <h3>Infrastructure</h3>
     </div>
@@ -882,16 +1099,7 @@
       </div>
       <div class="form-group">
         <label>Product Interest</label>
-        <select name="product">
-          <option>Tie Rod & Anchor Nut</option>
-          <option>Cups & Plates</option>
-          <option>Pipes</option>
-          <option>Couplers & Clamps</option>
-          <option>Jacks & Support</option>
-          <option>Nuts, Bolts & Pins</option>
-          <option>Accessories</option>
-          <option>Multiple / Custom Order</option>
-        </select>
+        <input type="text" name="product" placeholder="Tell us what you need...">
       </div>
       <div class="form-group">
         <label>Message</label>
@@ -917,15 +1125,6 @@
         <li><a href="#products">Products</a></li>
         <li><a href="#why">Why Us</a></li>
         <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="#products">Tie Rod & Anchor Nut</a></li>
-        <li><a href="#products">Cups & Plates</a></li>
-        <li><a href="#products">Pipes</a></li>
-        <li><a href="#products">Couplers</a></li>
       </ul>
     </div>
     <div class="footer-col">
