@@ -272,11 +272,16 @@
     position: relative;
   }
   .product-img-wrap img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+    mix-blend-mode: multiply;
+  }
+  .product-img-wrap.img-full img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
-    mix-blend-mode: multiply;
   }
   .product-card:hover .product-img-wrap img { transform: scale(1.08); }
   .product-icon {
@@ -623,8 +628,8 @@
   <div class="products-grid" id="productsGrid">
 
   <div class="product-card" data-cat="featured">
-    <div class="product-img-wrap">
-      <img src="products/tie rod.webp" alt="Tie Rod">
+    <div class="product-img-wrap img-full">
+      <img src="./products/tie rod.webp" alt="Tie Rod">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Featured</span>
@@ -636,7 +641,7 @@
 
   <div class="product-card" data-cat="featured">
     <div class="product-img-wrap">
-      <div class="product-icon">⭐</div>
+      <img src="./products/anchor  nut.webp" alt="Anchor Nut">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Featured</span>
@@ -648,7 +653,7 @@
 
   <div class="product-card" data-cat="featured">
     <div class="product-img-wrap">
-      <div class="product-icon">🔩</div>
+      <img src="./products/wing nut.jpg" alt="Wing Nut">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Featured</span>
@@ -660,7 +665,7 @@
 
   <div class="product-card" data-cat="cups">
     <div class="product-img-wrap">
-      <div class="product-icon">🥣</div>
+      <img src="./products/top cup.png" alt="Top Cup">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Cups & Plates</span>
@@ -672,7 +677,7 @@
 
   <div class="product-card" data-cat="cups">
     <div class="product-img-wrap">
-      <div class="product-icon">🍶</div>
+      <img src="./products/bottom cup.jpg" alt="Bottom Cup">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Cups & Plates</span>
@@ -684,7 +689,7 @@
 
   <div class="product-card" data-cat="cups">
     <div class="product-img-wrap">
-      <div class="product-icon">🗡️</div>
+      <img src="./products/ledger blade.jpg" alt="Ledger Blade">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Cups & Plates</span>
@@ -696,7 +701,7 @@
 
   <div class="product-card" data-cat="cups">
     <div class="product-img-wrap">
-      <div class="product-icon">⬜</div>
+      <img src="./products/waller plate.jpg" alt="Waller Plate">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Cups & Plates</span>
@@ -707,8 +712,8 @@
   </div>
 
   <div class="product-card" data-cat="pipes">
-    <div class="product-img-wrap">
-      <div class="product-icon">📏</div>
+    <div class="product-img-wrap img-full">
+      <img src="./products/vertical pipe.jpg" alt="Vertical Pipe">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Pipes & Structural</span>
@@ -720,7 +725,7 @@
 
   <div class="product-card" data-cat="pipes">
     <div class="product-img-wrap">
-      <div class="product-icon">📐</div>
+      <img src="./products/ledger pipw.webp" alt="Ledger Pipe">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Pipes & Structural</span>
@@ -732,7 +737,7 @@
 
   <div class="product-card" data-cat="couplers">
     <div class="product-img-wrap">
-      <div class="product-icon">🔗</div>
+      <img src="./products/forged fix.webp" alt="Forge Fix Coupler">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Couplers & Clamps</span>
@@ -744,7 +749,7 @@
 
   <div class="product-card" data-cat="couplers">
     <div class="product-img-wrap">
-      <div class="product-icon">🔄</div>
+      <img src="./products/forged swivel.avif" alt="Forge Swivel">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Couplers & Clamps</span>
@@ -754,21 +759,11 @@
     </div>
   </div>
 
-  <div class="product-card" data-cat="couplers">
-    <div class="product-img-wrap">
-      <div class="product-icon">🏗️</div>
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Couplers & Clamps</span>
-      <h3 class="product-name">Girder Clamp</h3>
-      <p class="product-desc">Heavy-duty girder clamp designed for attaching scaffolding to steel beams and girders. Provides secure fixation without damaging structural steel. Perfect for industrial and bridge construction.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
+
 
   <div class="product-card" data-cat="couplers">
     <div class="product-img-wrap">
-      <div class="product-icon">🔩</div>
+      <img src="./products/sleeve coupler.webp" alt="Sleeve Coupler">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Couplers & Clamps</span>
@@ -780,7 +775,7 @@
 
   <div class="product-card" data-cat="couplers">
     <div class="product-img-wrap">
-      <div class="product-icon">📋</div>
+      <img src="./products/sheet fix.webp" alt="Sheet Fix">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Couplers & Clamps</span>
@@ -792,7 +787,7 @@
 
   <div class="product-card" data-cat="couplers">
     <div class="product-img-wrap">
-      <div class="product-icon">🔃</div>
+      <img src="./products/gogo clamp.webp" alt="GOGO Clamp">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Couplers & Clamps</span>
@@ -804,7 +799,7 @@
 
   <div class="product-card" data-cat="couplers">
     <div class="product-img-wrap">
-      <div class="product-icon">💧</div>
+      <img src="./products/water stopper.webp" alt="Water Stopper">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Couplers & Clamps</span>
@@ -816,7 +811,7 @@
 
   <div class="product-card" data-cat="jacks">
     <div class="product-img-wrap">
-      <div class="product-icon">🔧</div>
+      <img src="./products/prop sleeve.jpg" alt="Prop Sleeve">
     </div>
     <div class="product-info">
       <span class="product-cat-badge">Jacks & Support</span>
