@@ -10,576 +10,764 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
 <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
 <link rel="manifest" href="favicon_io/site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="favicon_io/android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon_io/android-chrome-512x512.png">
 <meta name="theme-color" content="#C8920A">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root {
-    --gold: #C8920A;
-    --gold-light: #E0A820;
-    --gold-pale: #F5E0A0;
-    --dark: #FBF7F0;
-    --dark2: #F5EDE0;
-    --dark3: #EDE0CC;
-    --dark4: #E5D3B8;
-    --white: #2D2218;
-    --gray: #7A6A55;
-    --light: #F8F2E8;
-  }
+  --gold: #C8920A;
+  --gold-light: #E0A820;
+  --dark: #FBF7F0;
+  --dark2: #F5EDE0;
+  --dark3: #EDE0CC;
+  --dark4: #E5D3B8;
+  --white: #2D2218;
+  --gray: #7A6A55;
+}
 
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--white);font-family:'Outfit',sans-serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--dark3);}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
 
-  html { scroll-behavior: smooth; }
+/* ── QUICK SEARCH ── */
+.search-toggle{background:none;border:none;cursor:pointer;font-size:18px;color:var(--gray);transition:0.3s;}
+.search-toggle:hover{color:var(--gold);}
+.quick-search{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(45,34,24,0.95);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
+.quick-search.open{display:flex;}
+.quick-search-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;}
+.quick-search input{width:100%;max-width:600px;padding:18px 24px;font-size:18px;border:none;outline:none;background:#fff;color:var(--white);}
+.quick-search-results{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);margin-top:60px;width:100%;max-width:600px;max-height:300px;overflow-y:auto;background:#fff;border-radius:8px;}
+.quick-result{padding:14px 20px;border-bottom:1px solid var(--dark3);cursor:pointer;transition:0.2s;}
+.quick-result:hover{background:var(--dark2);}
+.quick-result h4{font-size:15px;color:var(--white);margin-bottom:4px;}
+.quick-result p{font-size:12px;color:var(--gray);}
 
-  body {
-    background: var(--dark);
-    color: var(--white);
-    font-family: 'Outfit', sans-serif;
-    overflow-x: hidden;
-  }
+/* ── DARK MODE TOGGLE ── */
+.theme-toggle{background:none;border:none;cursor:pointer;font-size:18px;color:var(--gray);transition:0.3s;margin-left:16px;}
+.theme-toggle:hover{color:var(--gold);}
+body.dark-mode{--dark:#1a1510;--dark2:#2a2218;--dark3:#3a3020;--dark4:#4a4030;--white:#FBF7F0;--gray:#a09080;}
+body.dark-mode nav{background:rgba(26,21,16,0.97);}
+body.dark-mode .mobile-menu{background:rgba(26,21,16,0.98);}
+body.dark-mode .hero-bg{background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(200,147,10,0.12) 0%,transparent 70%),linear-gradient(160deg,#1a1510 0%,#2a2218 50%,#1a1510 100%);}
+body.dark-mode .product-card{background:var(--dark2);}
+body.dark-mode .about-point{background:var(--dark3);}
+body.dark-mode .form-group input,.form-group textarea,.form-group select{background:var(--dark4);color:var(--white);}
+body.dark-mode .footer-brand p{color:#ccc;}
+body.dark-mode .footer-col ul li a{color:#ccc;}
+body.dark-mode .footer-col ul li a:hover{color:#fff;}
+body.dark-mode .footer-bottom p{color:#ccc;}
+body.dark-mode .hero-desc{color:rgba(255,255,255,0.7);}
+body.dark-mode h1{color:#fff;}
+body.dark-mode .hero-tag{color:var(--gold);}
+body.dark-mode .contact-item p,
+body.dark-mode .contact-item a{color:#ccc;}
 
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--dark3); }
-  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+/* ── STICKY BOTTOM BAR ── */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(45,34,24,0.95);backdrop-filter:blur(12px);padding:12px 24px;display:flex;align-items:center;justify-content:center;gap:16px;z-index:1500;transform:translateY(100%);transition:transform 0.3s;}
+.sticky-bar.show{transform:translateY(0);}
+.sticky-bar p{color:#fff;font-size:14px;margin:0;}
+.sticky-bar a{background:var(--gold);color:#fff;padding:10px 24px;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border-radius:4px;transition:0.3s;}
+.sticky-bar a:hover{background:var(--gold-light);}
+.sticky-whatsapp{background:#25D366 !important;}
+.sticky-close{position:absolute;right:20px;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;}
 
-  /* ── NAVBAR ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 60px;
-    background: rgba(251,247,240,0.97);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(200,147,10,0.2);
-    transition: padding 0.3s;
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px; font-weight: 700;
-    color: var(--gold); letter-spacing: 2px;
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--white); }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
-  .nav-links a {
-    color: var(--gray); text-decoration: none;
-    font-size: 15px; font-weight: 500; letter-spacing: 1px;
-    text-transform: uppercase; transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    background: var(--gold); color: var(--dark);
-    border: none; padding: 12px 28px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px; font-weight: 600;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    cursor: pointer; transition: background 0.3s, transform 0.2s;
-    text-decoration: none;
-  }
-  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+/* ── ONE-CLICK WHATSAPP QUOTE ── */
+.wa-quote-btn{position:fixed;bottom:24px;right:24px;z-index:999;background:#25D366;color:#fff;padding:12px 20px;border-radius:30px;display:flex;align-items:center;gap:10px;text-decoration:none;font-size:14px;font-weight:600;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:transform 0.3s;}
+.wa-quote-btn:hover{transform:scale(1.05);}
 
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-  .hamburger span { width: 24px; height: 2px; background: var(--gold); transition: 0.3s; }
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 60px;
+  background:rgba(251,247,240,0.97);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(200,147,10,0.2);
+  transition:padding 0.3s;
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold);letter-spacing:2px;text-decoration:none;}
+.nav-logo span{color:var(--white);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{background:var(--gold);color:#fff;border:none;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:0.3s;text-decoration:none;}
+.nav-cta:hover{background:var(--gold-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{width:24px;height:2px;background:var(--gold);transition:0.3s;display:block;}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(251,247,240,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,147,10,0.2);padding:20px 24px;z-index:999;flex-direction:column;gap:16px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:var(--gray);text-decoration:none;font-size:15px;font-weight:500;padding:8px 0;border-bottom:1px solid rgba(200,147,10,0.1);}
+.mobile-menu a:last-child{border-bottom:none;}
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    position: relative; overflow: hidden;
-    padding: 120px 60px 80px;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,147,10,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(200,147,10,0.04) 0%, transparent 60%),
-      linear-gradient(160deg, #FBF7F0 0%, #F5EDE0 50%, #FBF7F0 100%);
-  }
-  .hero-bg::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(200,147,10,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,147,10,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-  .hero-content { position: relative; z-index: 2; max-width: 680px; }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 28px;
-    padding: 8px 16px; border: 1px solid rgba(200,147,10,0.3);
-  }
-  .hero-tag::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
-  h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 8vw, 88px);
-    font-weight: 700; line-height: 1.0;
-    margin-bottom: 24px; letter-spacing: -1px;
-  }
-  h1 em { color: var(--gold); font-style: normal; }
-  .hero-desc {
-    font-size: 20px; line-height: 1.8; color: rgba(0,0,0,0.6);
-    max-width: 520px; margin-bottom: 48px; font-weight: 400;
-  }
-  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--gold); color: var(--dark);
-    padding: 18px 40px; font-size: 15px; font-weight: 600;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    text-decoration: none; transition: 0.3s;
-    display: inline-block;
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-  .btn-outline {
-    border: 1px solid rgba(106,90,205,0.5); color: var(--gold);
-    padding: 18px 40px; font-size: 15px; font-weight: 500;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    text-decoration: none; transition: 0.3s;
-    display: inline-block;
-  }
-  .btn-outline:hover { background: rgba(200,147,10,0.08); border-color: var(--gold); }
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;padding:100px 60px 60px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(200,147,10,0.08) 0%,transparent 70%),
+    linear-gradient(160deg,#FBF7F0 0%,#F5EDE0 50%,#FBF7F0 100%);
+}
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(200,147,10,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,147,10,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;width:100%;}
+.hero-content{max-width:620px;}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;padding:6px 14px;border:1px solid rgba(200,147,10,0.3);}
+.hero-tag::before{content:'';width:16px;height:1px;background:var(--gold);}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,80px);font-weight:700;line-height:1.0;margin-bottom:18px;letter-spacing:-1px;}
+h1 em{color:var(--gold);font-style:normal;}
+.hero-desc{font-size:17px;line-height:1.8;color:rgba(0,0,0,0.6);max-width:500px;margin-bottom:32px;font-weight:400;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{background:var(--gold);color:#fff;padding:14px 32px;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:0.3s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{border:1px solid rgba(200,147,10,0.5);color:var(--gold);padding:14px 32px;font-size:13px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:0.3s;display:inline-block;}
+.btn-outline:hover{background:rgba(200,147,10,0.08);border-color:var(--gold);}
 
-  .hero-stats {
-    position: absolute; right: 60px; bottom: 80px;
-    display: flex; gap: 48px; z-index: 2;
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px; font-weight: 700; color: var(--gold);
-    line-height: 1;
-  }
-  .stat-label { font-size: 13px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; margin-top: 6px; }
+/* Hero quick-stats (right side) */
+.hero-stats{display:flex;flex-direction:column;gap:24px;padding:28px 32px;background:rgba(200,147,10,0.06);border:1px solid rgba(200,147,10,0.15);flex-shrink:0;}
+.stat{text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;}
+.stat-label{font-size:11px;letter-spacing:2px;color:var(--gray);text-transform:uppercase;margin-top:4px;}
+.stat-divider{height:1px;background:rgba(200,147,10,0.2);}
 
-  .hero-accent {
-    position: absolute; right: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-    opacity: 0.5;
-  }
+/* ── SECTION COMMONS ── */
+section{padding:80px 60px;}
+.section-tag{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.section-tag::before{content:'';width:28px;height:1px;background:var(--gold);}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.5vw,52px);font-weight:700;line-height:1.1;margin-bottom:16px;}
+h2 em{color:var(--gold);font-style:normal;}
+.section-sub{font-size:17px;color:rgba(0,0,0,0.6);line-height:1.8;font-weight:400;max-width:560px;}
+.gold-divider{height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:0.3;margin:0 60px;}
 
-  /* ── SECTION COMMONS ── */
-  section { padding: 100px 60px; }
-  .section-tag {
-    font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 16px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .section-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
-  h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 700; line-height: 1.1; margin-bottom: 20px;
-  }
-  h2 em { color: var(--gold); font-style: normal; }
-  .section-sub {
-    font-size: 20px; color: rgba(0,0,0,0.6);
-    line-height: 1.8; font-weight: 400; max-width: 560px;
-  }
+/* ── PRODUCTS ── */
+#products{background:var(--dark);}
+.products-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:32px;}
+.category-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.tab{padding:9px 20px;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:1px solid rgba(200,147,10,0.3);color:var(--gray);background:transparent;transition:0.3s;font-family:'Outfit',sans-serif;font-weight:500;}
+.tab:hover,.tab.active{background:var(--gold);color:#fff;border-color:var(--gold);font-weight:600;}
+.products-count{font-size:14px;color:var(--gray);margin-bottom:20px;letter-spacing:1px;}
+.products-count span{color:var(--gold);font-weight:600;}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.product-card{background:var(--dark2);border:1px solid rgba(200,147,10,0.15);overflow:hidden;transition:0.3s;display:none;flex-direction:column;position:relative;}
+.product-card.visible{display:flex;}
+.product-card:hover{transform:translateY(-4px);border-color:rgba(200,147,10,0.5);box-shadow:0 12px 40px rgba(200,147,10,0.12);}
+.product-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:0.35s;}
+.product-card:hover::after{transform:scaleX(1);}
+.product-img-wrap{width:100%;height:160px;background:linear-gradient(135deg,#fff 0%,var(--dark2) 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid rgba(200,147,10,0.12);}
+.product-img-wrap img{width:80%;height:80%;object-fit:contain;transition:transform 0.4s;mix-blend-mode:multiply;}
+.product-img-wrap.img-full img{width:100%;height:100%;object-fit:cover;}
+.product-card:hover .product-img-wrap img{transform:scale(1.08);}
+.product-info{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;gap:6px;}
+.product-cat-badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--white);line-height:1.2;}
+.product-desc{font-size:14px;color:var(--gray);line-height:1.7;flex:1;margin-top:2px;}
+.product-enquire{display:inline-block;margin-top:10px;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(200,147,10,0.3);padding-bottom:2px;transition:0.3s;align-self:flex-start;}
+.product-enquire:hover{color:var(--gold-light);letter-spacing:2px;}
 
-  /* ── ABOUT ── */
-  #about { background: var(--dark2); }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center; margin-top: 60px;
-  }
-  .about-visual {
-    position: relative; aspect-ratio: 4/3;
-    background: var(--dark3);
-    border: 1px solid rgba(200,147,10,0.2);
-    overflow: hidden;
-  }
-  .about-visual-inner {
-    position: absolute; inset: 20px;
-    border: 1px solid rgba(200,147,10,0.2);
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 16px;
-  }
-  .about-icon { font-size: 64px; opacity: 0.15; }
-  .about-visual-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; color: var(--gold); opacity: 0.5;
-    letter-spacing: 4px; text-transform: uppercase;
-  }
-  .about-visual::before, .about-visual::after {
-    content: ''; position: absolute;
-    width: 30px; height: 30px;
-  }
-  .about-visual::before {
-    top: 0; left: 0;
-    border-top: 2px solid var(--gold); border-left: 2px solid var(--gold);
-  }
-  .about-visual::after {
-    bottom: 0; right: 0;
-    border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold);
-  }
-  .about-points { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
-  .about-point {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 16px; background: var(--dark3);
-    border-left: 2px solid var(--gold);
-  }
-  .about-point-icon { color: var(--gold); font-size: 18px; flex-shrink: 0; margin-top: 2px; }
-  .about-point-text h4 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
-  .about-point-text p { font-size: 16px; color: #555; line-height: 1.6; }
+/* ── WHY US (compact strip) ── */
+#why{background:var(--dark2);padding:64px 60px;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(200,147,10,0.1);margin-top:40px;}
+.why-card{background:var(--dark2);padding:36px 28px;position:relative;overflow:hidden;transition:0.3s;}
+.why-card:hover{background:var(--dark3);}
+.why-num{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:700;color:rgba(200,147,10,0.07);position:absolute;top:12px;right:18px;line-height:1;}
+.why-icon{width:44px;height:44px;background:rgba(200,147,10,0.1);border:1px solid rgba(200,147,10,0.3);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+.why-card h3{font-size:17px;font-weight:600;margin-bottom:8px;}
+.why-card p{font-size:14px;color:var(--gray);line-height:1.7;}
 
-  /* ── PRODUCTS SECTION ── */
-  #products { background: var(--dark); }
-  .products-intro { max-width: 680px; margin-bottom: 48px; }
-  .category-tabs {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin: 32px 0 48px;
-  }
-  .tab {
-    padding: 11px 26px; font-size: 14px; letter-spacing: 1.2px;
-    text-transform: uppercase; cursor: pointer;
-    border: 1px solid rgba(200,147,10,0.3); color: var(--gray);
-    background: transparent; transition: 0.3s; font-family: 'Outfit', sans-serif;
-    font-weight: 500;
-  }
-  .tab:hover, .tab.active {
-    background: var(--gold); color: #fff;
-    border-color: var(--gold); font-weight: 600;
-  }
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-  }
-  .product-card {
-    background: var(--dark2);
-    border: 1px solid rgba(200,147,10,0.15);
-    overflow: hidden;
-    transition: 0.35s ease;
-    display: none;
-    flex-direction: column;
-    position: relative;
-  }
-  .product-card.visible { display: flex; }
-  .product-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(200,147,10,0.5);
-    box-shadow: 0 12px 40px rgba(200,147,10,0.12);
-  }
-  .product-card::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 3px; background: var(--gold);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.35s ease;
-  }
-  .product-card:hover::after { transform: scaleX(1); }
-  .product-img-wrap {
-    width: 100%; height: 180px;
-    background: linear-gradient(135deg, #fff 0%, var(--dark2) 100%);
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(200,147,10,0.12);
-    position: relative;
-  }
-  .product-img-wrap img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    transition: transform 0.4s ease;
-    mix-blend-mode: multiply;
-  }
-  .product-img-wrap.img-full img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .product-card:hover .product-img-wrap img { transform: scale(1.08); }
-  .product-icon {
-    font-size: 72px;
-    opacity: 0.4;
-    filter: grayscale(30%);
-    transition: transform 0.4s ease, opacity 0.3s ease;
-  }
-  .product-card:hover .product-icon {
-    transform: scale(1.15) rotate(5deg);
-    opacity: 0.7;
-  }
-  .product-info { padding: 20px 22px 22px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-  .product-cat-badge {
-    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--gold); font-weight: 600;
-  }
-  .product-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px; font-weight: 700;
-    color: var(--white); line-height: 1.2;
-  }
-  .product-desc {
-    font-size: 16px; color: var(--gray);
-    line-height: 1.7; flex: 1;
-    margin-top: 4px;
-  }
-  .product-enquire {
-    display: inline-block; margin-top: 12px;
-    font-size: 14px; font-weight: 600;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--gold); text-decoration: none;
-    border-bottom: 1px solid rgba(200,147,10,0.3);
-    padding-bottom: 2px;
-    transition: 0.3s; align-self: flex-start;
-  }
-  .product-enquire:hover {
-    color: var(--gold-light);
-    border-color: var(--gold-light);
-    letter-spacing: 2px;
-  }
-  .products-count {
-    font-size: 16px; color: var(--gray);
-    margin-bottom: 24px; letter-spacing: 1px;
-  }
-  .products-count span { color: var(--gold); font-weight: 600; }
+/* ── CONTACT + ABOUT COMBINED ── */
+#contact{background:var(--dark);}
+.contact-about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:48px;align-items:start;}
 
-  /* ── WHY US ── */
-  #why { background: var(--dark2); }
-  .why-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 2px; background: rgba(200,147,10,0.1); margin-top: 60px;
-  }
-  .why-card {
-    background: var(--dark2); padding: 48px 36px;
-    position: relative; overflow: hidden;
-    transition: background 0.3s;
-  }
-  .why-card:hover { background: var(--dark3); }
-  .why-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 72px; font-weight: 700;
-    color: rgba(200,147,10,0.08);
-    position: absolute; top: 16px; right: 24px;
-    line-height: 1;
-  }
-  .why-icon {
-    width: 52px; height: 52px;
-    background: rgba(200,147,10,0.1);
-    border: 1px solid rgba(200,147,10,0.3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; margin-bottom: 24px;
-  }
-  .why-card h3 { font-size: 21px; font-weight: 600; margin-bottom: 12px; }
-  .why-card p { font-size: 17px; color: var(--gray); line-height: 1.7; }
+/* Left: About info cards */
+.about-side{}
+.exp-banner{
+  background:var(--gold);color:#fff;
+  padding:24px 28px;margin-bottom:24px;
+  display:flex;align-items:center;gap:20px;
+}
+.exp-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;line-height:1;color:#fff;}
+.exp-text h4{font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:4px;}
+.exp-text p{font-size:13px;opacity:0.85;line-height:1.5;}
+.about-points{display:flex;flex-direction:column;gap:2px;margin-bottom:24px;}
+.about-point{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--dark2);border-left:2px solid var(--gold);}
+.about-point-icon{color:var(--gold);font-size:18px;flex-shrink:0;margin-top:2px;}
+.about-point-text h4{font-size:14px;font-weight:600;margin-bottom:3px;}
+.about-point-text p{font-size:13px;color:var(--gray);line-height:1.5;}
+.contact-details{display:flex;flex-direction:column;gap:12px;}
+.contact-item{display:flex;gap:14px;align-items:flex-start;}
+.contact-icon{width:38px;height:38px;flex-shrink:0;background:rgba(200,147,10,0.1);border:1px solid rgba(200,147,10,0.3);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.contact-item h4{font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px;}
+.contact-item p,.contact-item a{font-size:14px;color:rgba(0,0,0,0.7);line-height:1.6;text-decoration:none;}
+.contact-item a:hover{color:var(--gold);}
 
-  /* ── INDUSTRIES ── */
-  #industries { background: var(--dark); }
-  .industries-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 20px; margin-top: 60px;
-  }
-  .industry-card {
-    border: 1px solid rgba(200,147,10,0.2);
-    padding: 40px 24px; text-align: center;
-    transition: 0.3s; position: relative;
-    overflow: hidden;
-  }
-  .industry-card:hover {
-    border-color: var(--gold);
-    background: rgba(200,147,10,0.06);
-  }
-  .industry-card::after {
-    content: attr(data-label);
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: var(--gold); color: var(--dark);
-    font-size: 11px; font-weight: 600; letter-spacing: 2px;
-    text-transform: uppercase; padding: 8px;
-    transform: translateY(100%); transition: transform 0.3s;
-  }
-  .industry-card:hover::after { transform: translateY(0); }
-  .industry-icon { font-size: 40px; margin-bottom: 16px; display: block; }
-  .industry-card h3 { font-size: 18px; font-weight: 500; }
+/* Right: Form */
+.contact-form{display:flex;flex-direction:column;gap:14px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.form-group input,.form-group textarea,.form-group select{background:var(--dark3);border:1px solid rgba(200,147,10,0.2);color:var(--white);padding:12px 14px;font-family:'Outfit',sans-serif;font-size:15px;outline:none;transition:0.3s;resize:none;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);}
+.form-group textarea{height:100px;}
+.form-submit{background:var(--gold);color:#fff;border:none;padding:14px 36px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:0.3s;align-self:flex-start;}
+.form-submit:hover{background:var(--gold-light);transform:translateY(-2px);}
 
-  /* ── CONTACT ── */
-  #contact { background: var(--dark2); }
-  .contact-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; margin-top: 60px;
-  }
-  .contact-info { display: flex; flex-direction: column; gap: 32px; }
-  .contact-item { display: flex; gap: 20px; align-items: flex-start; }
-  .contact-icon {
-    width: 44px; height: 44px; flex-shrink: 0;
-    background: rgba(200,147,10,0.1);
-    border: 1px solid rgba(200,147,10,0.3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-  }
-  .contact-item h4 { font-size: 14px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
-  .contact-item p { font-size: 17px; color: rgba(0,0,0,0.7); line-height: 1.6; }
-  .contact-form { display: flex; flex-direction: column; gap: 16px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 8px; }
-  .form-group label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-  .form-group input, .form-group textarea, .form-group select {
-    background: var(--dark3); border: 1px solid rgba(200,147,10,0.2);
-    color: var(--white); padding: 14px 16px;
-    font-family: 'Outfit', sans-serif; font-size: 16px;
-    outline: none; transition: border-color 0.3s; resize: none;
-  }
-  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-    border-color: var(--gold);
-  }
-  .form-group select option { background: var(--dark3); }
-  .form-group textarea { height: 120px; }
-  .form-submit {
-    background: var(--gold); color: var(--dark);
-    border: none; padding: 16px 40px;
-    font-family: 'Outfit', sans-serif; font-size: 15px;
-    font-weight: 600; letter-spacing: 2px;
-    text-transform: uppercase; cursor: pointer;
-    transition: 0.3s; align-self: flex-start;
-  }
-  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+/* WhatsApp floating button */
+.whatsapp-btn{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  width:56px;height:56px;border-radius:50%;
+  background:#25D366;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;text-decoration:none;
+  box-shadow:0 4px 20px rgba(37,211,102,0.4);
+  transition:transform 0.3s;
+}
+.whatsapp-btn:hover{transform:scale(1.1);}
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--dark);
-    border-top: 1px solid rgba(200,147,10,0.2);
-    padding: 60px 60px 32px;
-  }
-  .footer-top {
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 60px; margin-bottom: 60px;
-  }
-  .footer-brand h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px; color: var(--gold); margin-bottom: 12px;
-  }
-  .footer-brand p { font-size: 16px; color: #555; line-height: 1.8; }
-  .footer-tagline {
-    font-size: 11px; letter-spacing: 2px; color: rgba(106,90,205,0.5);
-    text-transform: uppercase; margin-top: 16px;
-  }
-  .footer-col h4 {
-    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 20px;
-  }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .footer-col ul li a {
-    font-size: 16px; color: #555; text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-col ul li a:hover { color: #000; }
-  .footer-bottom {
-    border-top: 1px solid rgba(200,147,10,0.15);
-    padding-top: 28px;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 12px;
-  }
-  .footer-bottom p { font-size: 14px; color: #555; }
-  .footer-bottom span { color: var(--gold); }
+/* ── INDUSTRIES ── */
+#industries{background:var(--dark2);padding:64px 60px;}
+.industries-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;}
+.industry-card{border:1px solid rgba(200,147,10,0.2);padding:32px 20px;text-align:center;transition:0.3s;position:relative;overflow:hidden;}
+.industry-card:hover{border-color:var(--gold);background:rgba(200,147,10,0.04);}
+.industry-icon{font-size:36px;margin-bottom:12px;display:block;}
+.industry-card h3{font-size:16px;font-weight:500;}
 
-  /* ── DIVIDER ── */
-  .gold-divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    opacity: 0.3; margin: 0 60px;
-  }
+/* ── FOOTER ── */
+footer{background:var(--dark);border-top:1px solid rgba(200,147,10,0.2);padding:48px 60px 24px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:40px;}
+.footer-brand h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:10px;}
+.footer-brand p{font-size:14px;color:#555;line-height:1.8;}
+.footer-tagline{font-size:10px;letter-spacing:2px;color:rgba(200,147,10,0.5);text-transform:uppercase;margin-top:12px;}
+.footer-col h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul li a{font-size:14px;color:#555;text-decoration:none;transition:color 0.3s;}
+.footer-col ul li a:hover{color:#000;}
+.footer-bottom{border-top:1px solid rgba(200,147,10,0.15);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.footer-bottom p{font-size:13px;color:#555;}
+.footer-bottom span{color:var(--gold);}
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .fade-up { animation: fadeUp 0.8s ease forwards; }
-  .fade-up-1 { animation-delay: 0.1s; opacity: 0; }
-  .fade-up-2 { animation-delay: 0.25s; opacity: 0; }
-  .fade-up-3 { animation-delay: 0.4s; opacity: 0; }
-  .fade-up-4 { animation-delay: 0.55s; opacity: 0; }
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp 0.7s ease forwards;}
+.fade-up-1{animation-delay:0.1s;opacity:0;}
+.fade-up-2{animation-delay:0.25s;opacity:0;}
+.fade-up-3{animation-delay:0.4s;opacity:0;}
+.fade-up-4{animation-delay:0.55s;opacity:0;}
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    .nav-links, .nav-cta { display: none; }
-    .hamburger { display: flex; }
-    section { padding: 80px 24px; }
-    #hero { padding: 100px 24px 80px; }
-    .hero-stats { position: static; margin-top: 60px; justify-content: flex-start; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .why-grid, .industries-grid { grid-template-columns: 1fr 1fr; }
-    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
-    .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-    .form-row { grid-template-columns: 1fr; }
-    .gold-divider { margin: 0 24px; }
-    footer { padding: 40px 24px 24px; }
-  }
-  @media (max-width: 600px) {
-    h1 { font-size: 42px; }
-    .why-grid, .industries-grid { grid-template-columns: 1fr; }
-    .footer-top { grid-template-columns: 1fr; }
-    .hero-stats { flex-direction: column; gap: 24px; }
-    .products-grid { grid-template-columns: 1fr; }
-  }
+/* ── RESPONSIVE TABLET ── */
+@media(max-width:1024px){
+  nav{padding:14px 32px;}
+  section{padding:64px 32px;}
+  .gold-divider{margin:0 32px;}
+  footer{padding:40px 32px 20px;}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-stats{flex-direction:row;justify-content:flex-start;gap:32px;padding:20px 24px;}
+  .stat-divider{width:1px;height:auto;align-self:stretch;}
+  .why-grid{grid-template-columns:1fr 1fr;}
+  .industries-grid{grid-template-columns:1fr 1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+
+/* ── RESPONSIVE MOBILE ── */
+@media(max-width:768px){
+  nav{padding:12px 20px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  section{padding:56px 20px;}
+  #hero{padding:88px 20px 48px;}
+  .gold-divider{margin:0 20px;}
+
+  h1{font-size:38px;}
+  h2{font-size:30px;}
+  .hero-desc{font-size:15px;}
+  .hero-stats{flex-direction:row;flex-wrap:wrap;gap:20px;padding:16px 20px;}
+  .stat-num{font-size:32px;}
+  .stat-divider{display:none;}
+
+  /* Products */
+  .products-header{flex-direction:column;align-items:flex-start;}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .product-img-wrap{height:130px;}
+  .product-name{font-size:17px;}
+  .product-desc{font-size:13px;}
+  .product-info{padding:12px 14px 14px;}
+  .category-tabs{gap:6px;}
+  .tab{padding:7px 14px;font-size:11px;}
+
+  /* Why us */
+  .why-grid{grid-template-columns:1fr 1fr;gap:2px;}
+  .why-card{padding:24px 18px;}
+  .why-card h3{font-size:15px;}
+  .why-card p{font-size:13px;}
+
+  /* Contact + About */
+  .contact-about-grid{grid-template-columns:1fr;gap:36px;}
+  .exp-num{font-size:40px;}
+  .form-row{grid-template-columns:1fr;}
+
+  /* Industries */
+  .industries-grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .industry-card{padding:24px 16px;}
+
+  /* Footer */
+  .footer-top{grid-template-columns:1fr;gap:28px;}
+  footer{padding:36px 20px 16px;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:6px;}
+}
+
+@media(max-width:420px){
+  h1{font-size:32px;}
+  .products-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .industries-grid{grid-template-columns:1fr 1fr;}
+  .hero-btns{flex-direction:column;}
+  .btn-primary,.btn-outline{text-align:center;}
+}
 </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ── -->
+<!-- Quick Search Overlay -->
+<div class="quick-search" id="quickSearch">
+  <button class="quick-search-close" onclick="closeSearch()">&times;</button>
+  <input type="text" id="searchInput" placeholder="Search products... (e.g. Tie Rod, Anchor Nut)" onkeyup="searchProducts()">
+  <div class="quick-search-results" id="searchResults"></div>
+</div>
+
+<!-- Sticky Bottom Bar -->
+<div class="sticky-bar" id="stickyBar">
+  <p>📞 Need a quick quote? Get started in seconds!</p>
+  <a href="#contact">Get Quote</a>
+  <a href="https://wa.me/918838006319?text=Hi Crescent Syndicate, I'm interested in your products. Please share the catalogue." class="sticky-whatsapp" target="_blank">💬 WhatsApp</a>
+  <button class="sticky-close" onclick="closeStickyBar()">&times;</button>
+</div>
+
+<!-- One-Click WhatsApp Quote -->
+<a href="https://wa.me/918838006319?text=Hi Crescent Syndicate, I'd like to get a quote for:" class="wa-quote-btn" target="_blank">
+  <svg width="20" height="20" viewBox="0 0 32 32" fill="#fff"><path d="M16 3C8.832 3 3 8.832 3 16C3 20.088 4.392 23.736 6.84 26.52L5.4 31.2L10.44 28.44C12.576 29.16 14.952 29.64 16.44 29.64C23.616 29.64 29.64 23.616 29.64 16.44C29.64 9.264 23.616 3.24 16.44 3.24L16 3Z"/></svg>
+  Get Quote on WhatsApp
+</a>
+
+
 <nav id="navbar">
   <a href="#" class="nav-logo">CRESCENT <span>SYNDICATE</span></a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#industries">Industries</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get Quote</a>
-  <div class="hamburger" onclick="toggleMenu()">
+  <button class="search-toggle" onclick="openSearch()" title="Search Products">🔍</button>
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
+<a href="#contact" class="nav-cta">Get Quote</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#products" onclick="closeMobile()">Products</a>
+  <a href="#why" onclick="closeMobile()">Why Us</a>
+  <a href="#industries" onclick="closeMobile()">Industries</a>
+  <a href="#contact" onclick="closeMobile()">Contact & Enquiry</a>
+  <a href="Catalogue syndicate.pdf" download style="color:var(--gold);font-weight:600;">⬇ Download Catalogue</a>
+</div>
 
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-accent"></div>
-  <div class="hero-content">
-    <div class="hero-tag fade-up fade-up-1">Coimbatore, Tamil Nadu</div>
-    <h1 class="fade-up fade-up-2">
-      Building <em>Stronger</em><br>Foundations
-    </h1>
-    <p class="hero-desc fade-up fade-up-3">
-      Premium scaffolding accessories, Tie Rod and Anchor Nut. Trusted by builders and contractors across South India for durability, safety, and reliability on every site.
-    </p>
-    <div class="hero-btns fade-up fade-up-4">
-      <a href="Catalogue syndicate.pdf" class="btn-primary" download>Download Catalogue</a>
-      <a href="#contact" class="btn-outline">Request a Quote</a>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag fade-up fade-up-1">Coimbatore, Tamil Nadu · Est. Since Day One</div>
+      <h1 class="fade-up fade-up-2">
+        Building <em>Stronger</em><br>Foundations
+      </h1>
+      <p class="hero-desc fade-up fade-up-3">
+        Premium scaffolding accessories, Tie Rods and Anchor Nuts. Trusted by builders and contractors across South India for durability, safety, and reliability.
+      </p>
+      <div class="hero-btns fade-up fade-up-4">
+        <a href="#products" class="btn-primary">Browse Products</a>
+        <a href="Catalogue syndicate.pdf" class="btn-outline" download>Download Catalogue</a>
+      </div>
     </div>
-  </div>
-  <div class="hero-stats fade-up fade-up-4">
-    <div class="stat">
-      <div class="stat-num">30+</div>
-      <div class="stat-label">Years Experience</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Quality Assured</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">South India</div>
-      <div class="stat-label">Delivery</div>
+    <div class="hero-stats fade-up fade-up-4">
+      <div class="stat">
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Quality Assured</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">South</div>
+        <div class="stat-label">India Delivery</div>
+      </div>
     </div>
   </div>
 </section>
 
 <div class="gold-divider"></div>
 
-<!-- ── ABOUT ── -->
-<section id="about">
-  <div class="section-tag">Who We Are</div>
-  <h2>Turning <em>Vision</em> Into Success</h2>
-  <div class="about-grid">
+<!-- ── PRODUCTS — FIRST THING AFTER HERO ── -->
+<section id="products">
+  <div class="products-header">
     <div>
-      <p class="section-sub">
-        Crescent Syndicate is a trusted supplier based in Coimbatore, Tamil Nadu, specializing in high-quality scaffolding accessories, Tie Rod and Anchor Nut. We are committed to providing durable and reliable construction solutions that meet industry standards.
-      </p>
+      <div class="section-tag">Our Range</div>
+      <h2>Our <em>Products</em></h2>
+      <p class="section-sub" style="font-size:15px;margin-top:6px;">Tap a category to filter. Click Enquire → to send a quick quote request.</p>
+    </div>
+    <a href="Catalogue syndicate.pdf" class="btn-outline" download style="white-space:nowrap;align-self:flex-end;">⬇ Download Catalogue</a>
+  </div>
+
+  <div class="category-tabs">
+    <button class="tab active" onclick="filterProducts('all',this)">All Products</button>
+    <button class="tab" onclick="filterProducts('featured',this)">⭐ Tie Rod & Anchor Nut</button>
+    <button class="tab" onclick="filterProducts('cups',this)">Cups & Plates</button>
+    <button class="tab" onclick="filterProducts('pipes',this)">Pipes</button>
+    <button class="tab" onclick="filterProducts('couplers',this)">Couplers & Clamps</button>
+    <button class="tab" onclick="filterProducts('jacks',this)">Jacks & Support</button>
+    <button class="tab" onclick="filterProducts('nuts',this)">Nuts, Bolts & Pins</button>
+  </div>
+
+  <p class="products-count">Showing <span id="prod-count">27</span> products</p>
+
+  <div class="products-grid" id="productsGrid">
+
+    <div class="product-card" data-cat="featured">
+      <div class="product-img-wrap img-full"><img src="./products/tie rod.webp" alt="Tie Rod"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">⭐ Featured</span>
+        <h3 class="product-name">Tie Rod</h3>
+        <p class="product-desc">High-tensile threaded tie rod for formwork and shuttering. Premium steel, precision threads. Available in 15mm, 17mm and custom lengths.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="featured">
+      <div class="product-img-wrap"><img src="./products/anchor  nut.webp" alt="Anchor Nut"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">⭐ Featured</span>
+        <h3 class="product-name">Anchor Nut (2 Wing)</h3>
+        <p class="product-desc">Heavy-duty two-wing anchor nut for formwork systems. Superior grip and load distribution on tie rod assemblies. Cast and forged variants available.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="featured">
+      <div class="product-img-wrap"><img src="./products/wing nut.jpg" alt="Wing Nut"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">⭐ Featured</span>
+        <h3 class="product-name">Wing Nut</h3>
+        <p class="product-desc">Ergonomic wing nut for fast hand-tightening on scaffolding connections and tie rod systems. Ideal for frequent assembly and disassembly.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="cups">
+      <div class="product-img-wrap"><img src="./products/top cup.png" alt="Top Cup"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Cups & Plates</span>
+        <h3 class="product-name">Top Cup (Cast & Forged)</h3>
+        <p class="product-desc">Precision top cup for cuplock scaffolding. Cast and forged variants. Connects horizontal ledgers to verticals at any angle.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="cups">
+      <div class="product-img-wrap"><img src="./products/bottom cup.jpg" alt="Bottom Cup"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Cups & Plates</span>
+        <h3 class="product-name">Bottom Cup</h3>
+        <p class="product-desc">Fixed bottom cup for cuplock scaffolding verticals. Consistent weld quality for reliable structural performance.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="cups">
+      <div class="product-img-wrap"><img src="./products/ledger blade.jpg" alt="Ledger Blade"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Cups & Plates</span>
+        <h3 class="product-name">Ledger Blade</h3>
+        <p class="product-desc">Forged ledger blade for cuplock system. Quick tool-free assembly. Handles heavy horizontal loads.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="cups">
+      <div class="product-img-wrap"><img src="./products/waller plate.jpg" alt="Waller Plate"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Cups & Plates</span>
+        <h3 class="product-name">Waller Plate</h3>
+        <p class="product-desc">Square steel bearing plate for even load distribution. Prevents sinking into soft ground at base and head of props.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="pipes">
+      <div class="product-img-wrap img-full"><img src="./products/vertical pipe.jpg" alt="Vertical Pipe"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Pipes & Structural</span>
+        <h3 class="product-name">Vertical Pipe</h3>
+        <p class="product-desc">High-tensile steel vertical pipe for scaffolding systems. Multiple lengths available as primary vertical load-bearing members.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="pipes">
+      <div class="product-img-wrap"><img src="./products/ledger pipw.webp" alt="Ledger Pipe"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Pipes & Structural</span>
+        <h3 class="product-name">Ledger Pipe</h3>
+        <p class="product-desc">Horizontal steel pipe connecting verticals in scaffolding systems. Precision-cut standard lengths with secure end fittings.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="couplers">
+      <div class="product-img-wrap"><img src="./products/forged fix.webp" alt="Forge Fix"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Couplers & Clamps</span>
+        <h3 class="product-name">Forge Fix Coupler</h3>
+        <p class="product-desc">Right-angle forged coupler for 90° tube connections. One-piece forged for maximum strength. Meets BS EN 74 standards.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="couplers">
+      <div class="product-img-wrap"><img src="./products/forged swivel.avif" alt="Forge Swivel"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Couplers & Clamps</span>
+        <h3 class="product-name">Forge Swivel</h3>
+        <p class="product-desc">360° rotating forged swivel coupler. Enables angular adjustments while maintaining structural integrity.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="couplers">
+      <div class="product-img-wrap"><img src="./products/sleeve coupler.webp" alt="Sleeve Coupler"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Couplers & Clamps</span>
+        <h3 class="product-name">Sleeve Coupler</h3>
+        <p class="product-desc">Internal sleeve coupler for joining scaffold tubes end-to-end. Full load transfer, smooth outer surface.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="couplers">
+      <div class="product-img-wrap"><img src="./products/sheet fix.webp" alt="Sheet Fix"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Couplers & Clamps</span>
+        <h3 class="product-name">Sheet Fix</h3>
+        <p class="product-desc">Clamp for securing sheet materials to scaffolding. For temporary walls, safety screens and debris nets.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="couplers">
+      <div class="product-img-wrap"><img src="./products/sheet swivel.jpg" alt="Sheet Swivel"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Couplers & Clamps</span>
+        <h3 class="product-name">Sheet Swivel</h3>
+        <p class="product-desc">Rotating swivel clamp for sheet materials at adjustable angles. Quick-lock mechanism for safety screens and hoardings.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="couplers">
+      <div class="product-img-wrap"><img src="./products/gogo clamp.webp" alt="GOGO Clamp"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Couplers & Clamps</span>
+        <h3 class="product-name">GOGO Clamp</h3>
+        <p class="product-desc">Versatile GOGO clamp for quick tube connections. Lightweight yet durable for temporary structures and event staging.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="couplers">
+      <div class="product-img-wrap"><img src="./products/water stopper.webp" alt="Water Stopper"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Couplers & Clamps</span>
+        <h3 class="product-name">Water Stopper</h3>
+        <p class="product-desc">Rubber-based water stopper for formwork applications. Prevents leakage at construction joints in waterproof concrete structures.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="jacks">
+      <div class="product-img-wrap"><img src="./products/prop sleeve.jpg" alt="Prop Sleeve"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Jacks & Support</span>
+        <h3 class="product-name">Prop Sleeve</h3>
+        <p class="product-desc">Adjustable prop sleeve for extending scaffolding props. Fine height adjustments for precise formwork alignment.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="jacks">
+      <div class="product-img-wrap"><img src="./products/u head jack.jpg" alt="U Head Jack"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Jacks & Support</span>
+        <h3 class="product-name">U Head Jack</h3>
+        <p class="product-desc">U-shaped head jack for supporting formwork beams and slab tables. Stable bearing surface with adjustable height control.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="jacks">
+      <div class="product-img-wrap"><img src="./products/base jack.jpg" alt="Base Jack"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Jacks & Support</span>
+        <h3 class="product-name">Base Jack</h3>
+        <p class="product-desc">Sturdy base jack for distributing load from vertical props. Threaded height adjustment, base plate prevents sinking in soft soil.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="jacks">
+      <div class="product-img-wrap"><img src="./products/spigot pin.webp" alt="Spigot Pin"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Jacks & Support</span>
+        <h3 class="product-name">Spigot Pin</h3>
+        <p class="product-desc">Connecting pin for scaffold tubes at spigot joints. Quick insertion for fast system scaffolding assembly.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="jacks">
+      <div class="product-img-wrap"><img src="./products/lt prop.jpg" alt="LT Prop"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Jacks & Support</span>
+        <h3 class="product-name">LT Prop</h3>
+        <p class="product-desc">Light-duty telescopic prop for temporary support during construction. Adjustable height for slab props and beam supporting.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="nuts">
+      <div class="product-img-wrap"><img src="./products/stub pin with wedge.jpg" alt="Stub Pin With Wedge"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+        <h3 class="product-name">Stub Pin With Wedge</h3>
+        <p class="product-desc">Stub pin with integrated wedge for secure locking in cuplock scaffolding. Tamper-resistant, tight wedge fit.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="nuts">
+      <div class="product-img-wrap"><img src="./products/flip pin.jpg" alt="Flip Pin"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+        <h3 class="product-name">Flip Pin</h3>
+        <p class="product-desc">Spring-loaded flip pin for quick tool-free scaffolding connections. Fast assembly in cuplock and frame scaffolding.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="nuts">
+      <div class="product-img-wrap"><img src="./products/shuttering clamp.jpg" alt="Shuttering Clamp"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+        <h3 class="product-name">Shuttering Clamp</h3>
+        <p class="product-desc">Formwork shuttering clamp for joining and tightening panels. Quick-release lever for easy stripping.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="nuts">
+      <div class="product-img-wrap"><img src="./products/joint pin.jpg" alt="Joint Pin"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+        <h3 class="product-name">Joint Pin</h3>
+        <p class="product-desc">Internal joint pin for connecting scaffold tubes at couplings. Smooth outer surface, no protrusions.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="nuts">
+      <div class="product-img-wrap"><img src="./products/prop nut.jpg" alt="Prop Nut"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+        <h3 class="product-name">Prop Nut</h3>
+        <p class="product-desc">Hexagonal prop nut for securing adjustable props and jacks. Standard threads, zinc-plated for rust resistance.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="nuts">
+      <div class="product-img-wrap"><img src="./products/gugu machine.jpg" alt="Gugu Machine"></div>
+      <div class="product-info">
+        <span class="product-cat-badge">Nuts, Bolts & Pins</span>
+        <h3 class="product-name">Gugu Machine</h3>
+        <p class="product-desc">Industrial machine for forming and fixing scaffolding components. Used for pressing and shaping metal parts.</p>
+        <a href="#contact" class="product-enquire">Enquire →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ── WHY US ── -->
+<section id="why">
+  <div class="section-tag">Why Choose Us</div>
+  <h2>Built on <em>Trust</em></h2>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-num">01</div><div class="why-icon">🏭</div><h3>Premium Quality</h3><p>Every product manufactured to strict standards using high-grade materials for unmatched site durability.</p></div>
+    <div class="why-card"><div class="why-num">02</div><div class="why-icon">💰</div><h3>Competitive Pricing</h3><p>Direct supplier advantage — no middleman markups. Best rates on bulk orders guaranteed.</p></div>
+    <div class="why-card"><div class="why-num">03</div><div class="why-icon">⚡</div><h3>Fast Delivery</h3><p>Quick turnaround across South India. Your site never waits for materials.</p></div>
+    <div class="why-card"><div class="why-num">04</div><div class="why-icon">🤝</div><h3>Trusted by Builders</h3><p>30+ years of relationships with contractors and builders across South India.</p></div>
+    <div class="why-card"><div class="why-num">05</div><div class="why-icon">🔧</div><h3>Complete Range</h3><p>One-stop shop for all scaffolding and shuttering accessories for every project.</p></div>
+    <div class="why-card"><div class="why-num">06</div><div class="why-icon">📞</div><h3>Dedicated Support</h3><p>Always available for product selection, technical queries, and custom orders.</p></div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ── INDUSTRIES ── -->
+<section id="industries">
+  <div class="section-tag">Industries We Serve</div>
+  <h2>Trusted Across <em>Sectors</em></h2>
+  <div class="industries-grid">
+    <div class="industry-card"><span class="industry-icon">🏗️</span><h3>Construction</h3></div>
+    <div class="industry-card"><span class="industry-icon">🏢</span><h3>Real Estate</h3></div>
+    <div class="industry-card"><span class="industry-icon">🏭</span><h3>Industrial</h3></div>
+    <div class="industry-card"><span class="industry-icon">🌉</span><h3>Infrastructure</h3></div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ── CONTACT + ABOUT COMBINED ── -->
+<section id="contact">
+  <div class="section-tag">Get In Touch</div>
+  <h2>Let's Build <em>Together</em></h2>
+  <p class="section-sub">Have a project in mind? Send an enquiry and we'll get back within 24 hours.</p>
+
+  <div class="contact-about-grid">
+
+    <!-- LEFT — About + Contact Info -->
+    <div class="about-side">
+      <!-- 30+ Years Banner -->
+      <div class="exp-banner">
+        <div class="exp-num">30+</div>
+        <div class="exp-text">
+          <h4>Years of Experience</h4>
+          <p>Trusted by builders and contractors across South India since day one. Quality · Trust · Safety.</p>
+        </div>
+      </div>
+
+      <!-- Key points -->
       <div class="about-points">
         <div class="about-point">
           <div class="about-point-icon">🏗</div>
@@ -592,527 +780,63 @@
           <div class="about-point-icon">🛡</div>
           <div class="about-point-text">
             <h4>Safety First Approach</h4>
-            <p>All products meet industry safety standards for scaffolding.</p>
+            <p>All products meet industry safety standards for scaffolding and formwork.</p>
           </div>
         </div>
         <div class="about-point">
           <div class="about-point-icon">🚚</div>
           <div class="about-point-text">
-            <h4>All-Over Distribution</h4>
+            <h4>South India Distribution</h4>
             <p>Reliable delivery from Coimbatore to job sites anywhere in South India.</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="about-visual">
-      <div class="about-visual-inner" style="background:rgba(255,255,255,0.85);border:2px solid #C8920A;box-shadow:0 4px 32px #C8920A44,0 1px 8px #fff8; border-radius:18px;">
-        <div class="about-icon" style="color:#C8920A;opacity:0.5;">🏗️</div>
-        <div class="about-visual-text" style="color:#C8920A;opacity:1;font-weight:700;text-shadow:0 1px 8px #fff8,0 0 2px #C8920A;">Since Day One</div>
-        <div style="font-size:15px;color:#C8920A;font-weight:600;letter-spacing:2px;text-shadow:0 1px 8px #fff8,0 0 2px #C8920A;">QUALITY · TRUST · SAFETY</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<div class="gold-divider"></div>
-
-<!-- ── PRODUCTS ── -->
-<section id="products">
-  <div class="section-tag">Our Range</div>
-  <h2>Our <em>Products</em></h2>
-  <div class="products-intro">
-    <p class="section-sub">From tie rods and anchor nuts to couplers and jacks — every product in our catalogue is quality-checked and ready for your site. Tap a category to filter.</p>
-  </div>
-  <div class="category-tabs">
-    <button class="tab active" onclick="filterProducts('all', this)">All Products</button>
-    <button class="tab" onclick="filterProducts('featured', this)">⭐ Tie Rod & Anchor Nut</button>
-    <button class="tab" onclick="filterProducts('cups', this)">Cups & Plates</button>
-    <button class="tab" onclick="filterProducts('pipes', this)">Pipes</button>
-    <button class="tab" onclick="filterProducts('couplers', this)">Couplers & Clamps</button>
-    <button class="tab" onclick="filterProducts('jacks', this)">Jacks & Support</button>
-    <button class="tab" onclick="filterProducts('nuts', this)">Nuts, Bolts & Pins</button>
-
-  </div>
-  <p class="products-count">Showing <span id="prod-count">31</span> products</p>
-  <div class="products-grid" id="productsGrid">
-
-  <div class="product-card" data-cat="featured">
-    <div class="product-img-wrap img-full">
-      <img src="./products/tie rod.webp" alt="Tie Rod">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Featured</span>
-      <h3 class="product-name">Tie Rod</h3>
-      <p class="product-desc">High-tensile threaded tie rod engineered for formwork and shuttering applications. Manufactured from premium-grade steel with precision rolled threads for consistent load transfer. Available in standard diameters (15mm, 17mm) and custom lengths to suit every concrete wall, column, and slab project.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="featured">
-    <div class="product-img-wrap">
-      <img src="./products/anchor  nut.webp" alt="Anchor Nut">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Featured</span>
-      <h3 class="product-name">Anchor Nut (2 Wing)</h3>
-      <p class="product-desc">Heavy-duty two-wing anchor nut designed for formwork and shuttering systems. Provides superior grip and load distribution on tie rod assemblies. Available in cast and forged variants for different load requirements.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="featured">
-    <div class="product-img-wrap">
-      <img src="./products/wing nut.jpg" alt="Wing Nut">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Featured</span>
-      <h3 class="product-name">Wing Nut</h3>
-      <p class="product-desc">Ergonomic wing nut for fast hand-tightening on scaffolding connections and tie rod systems. Ideal for frequent assembly and disassembly on formwork panels and shuttering frames.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="cups">
-    <div class="product-img-wrap">
-      <img src="./products/top cup.png" alt="Top Cup">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Cups & Plates</span>
-      <h3 class="product-name">Top Cup (Cast & Forged)</h3>
-      <p class="product-desc">Precision-manufactured top cup used in cuplock scaffolding systems. Available in both cast and forged variants, offering exceptional strength for connecting horizontal ledgers to vertical standards at any angle.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="cups">
-    <div class="product-img-wrap">
-      <img src="./products/bottom cup.jpg" alt="Bottom Cup">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Cups & Plates</span>
-      <h3 class="product-name">Bottom Cup</h3>
-      <p class="product-desc">Welded fixed bottom cup for cuplock scaffolding verticals. Provides the locking base for horizontal ledger blades. Made from high-quality steel with consistent weld quality for reliable structural performance.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="cups">
-    <div class="product-img-wrap">
-      <img src="./products/ledger blade.jpg" alt="Ledger Blade">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Cups & Plates</span>
-      <h3 class="product-name">Ledger Blade</h3>
-      <p class="product-desc">Forged ledger blade that slots into the cuplock system, connecting horizontal ledgers to vertical pipes. Engineered for quick, tool-free assembly and tested to handle heavy horizontal loads.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="cups">
-    <div class="product-img-wrap">
-      <img src="./products/waller plate.jpg" alt="Waller Plate">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Cups & Plates</span>
-      <h3 class="product-name">Waller Plate</h3>
-      <p class="product-desc">Square steel bearing plate used at the base and head of props and scaffolding for even load distribution. Prevents sinking into soft ground and provides a stable footing for vertical supports.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="pipes">
-    <div class="product-img-wrap img-full">
-      <img src="./products/vertical pipe.jpg" alt="Vertical Pipe">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Pipes & Structural</span>
-      <h3 class="product-name">Vertical Pipe</h3>
-      <p class="product-desc">High-tensile steel vertical pipe (standard) for scaffolding systems. Available in multiple lengths, these form the primary vertical load-bearing members of any scaffolding structure.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="pipes">
-    <div class="product-img-wrap">
-      <img src="./products/ledger pipw.webp" alt="Ledger Pipe">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Pipes & Structural</span>
-      <h3 class="product-name">Ledger Pipe</h3>
-      <p class="product-desc">Horizontal steel pipe used as the main horizontal member connecting verticals in a scaffolding system. Precision-cut to standard lengths and fitted with end fittings for secure coupling.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="couplers">
-    <div class="product-img-wrap">
-      <img src="./products/forged fix.webp" alt="Forge Fix Coupler">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Couplers & Clamps</span>
-      <h3 class="product-name">Forge Fix Coupler</h3>
-      <p class="product-desc">Right-angle (fixed) forged coupler for connecting scaffold tubes at 90°. Forged in one piece for maximum strength, no welded parts. Meets BS EN 74 standards for scaffolding couplers under heavy loads.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="couplers">
-    <div class="product-img-wrap">
-      <img src="./products/forged swivel.avif" alt="Forge Swivel">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Couplers & Clamps</span>
-      <h3 class="product-name">Forge Swivel</h3>
-      <p class="product-desc">Rotating forged swivel coupler allowing 360° connection between scaffold tubes. Enables angular adjustments while maintaining structural integrity. Ideal for complex scaffolding configurations.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-
-
-  <div class="product-card" data-cat="couplers">
-    <div class="product-img-wrap">
-      <img src="./products/sleeve coupler.webp" alt="Sleeve Coupler">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Couplers & Clamps</span>
-      <h3 class="product-name">Sleeve Coupler</h3>
-      <p class="product-desc">Internal sleeve coupler for joining two scaffold tubes end-to-end in a straight line. Provides seamless connection with full load transfer. Common for extending ledger and brace lengths.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="couplers">
-    <div class="product-img-wrap">
-      <img src="./products/sheet fix.webp" alt="Sheet Fix">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Couplers & Clamps</span>
-      <h3 class="product-name">Sheet Fix</h3>
-      <p class="product-desc">Specialized clamp for securing sheet materials to scaffolding structures. Used for attaching temporary walls, safety screens, and debris nets. Quick-release mechanism for easy installation and removal.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="couplers">
-    <div class="product-img-wrap">
-      <img src="./products/sheet swivel.jpg" alt="Sheet Swivel">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Couplers & Clamps</span>
-      <h3 class="product-name">Sheet Swivel</h3>
-      <p class="product-desc">Rotating swivel clamp for attaching sheet materials at adjustable angles to scaffolding. Enables angular positioning of safety screens, hoardings, and temporary barriers. Quick-lock mechanism for secure positioning.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="couplers">
-    <div class="product-img-wrap">
-      <img src="./products/gogo clamp.webp" alt="GOGO Clamp">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Couplers & Clamps</span>
-      <h3 class="product-name">GOGO Clamp</h3>
-      <p class="product-desc">Versatile GOGO clamp for quick tube-to-tube connections in scaffolding. Lightweight yet durable, ideal for temporary structures and event staging. Easy to assemble and disassemble.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="couplers">
-    <div class="product-img-wrap">
-      <img src="./products/water stopper.webp" alt="Water Stopper">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Couplers & Clamps</span>
-      <h3 class="product-name">Water Stopper</h3>
-      <p class="product-desc">Rubber-based water stopper for formwork applications. Prevents water leakage at construction joints. Essential for waterproof concrete structures and basement construction.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="jacks">
-    <div class="product-img-wrap">
-      <img src="./products/prop sleeve.jpg" alt="Prop Sleeve">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Jacks & Support</span>
-      <h3 class="product-name">Prop Sleeve</h3>
-      <p class="product-desc">Adjustable prop sleeve for extending scaffolding props and support systems. Allows fine height adjustments for precise formwork alignment. Galvanized for corrosion resistance.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="jacks">
-    <div class="product-img-wrap">
-      <img src="./products/u head jack.jpg" alt="U Head Jack">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Jacks & Support</span>
-      <h3 class="product-name">U Head Jack</h3>
-      <p class="product-desc">U-shaped head jack for supporting formwork beams and slab tables. Provides stable bearing surface for wooden or steel beams. Adjustable for precise height control.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="jacks">
-    <div class="product-img-wrap">
-      <img src="./products/base jack.jpg" alt="Base Jack">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Jacks & Support</span>
-      <h3 class="product-name">Base Jack</h3>
-      <p class="product-desc">Sturdy base jack for distributing load from vertical props to the ground. Threaded adjustment mechanism for height fine-tuning. Base plate prevents sinking into soft soil.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="jacks">
-    <div class="product-img-wrap">
-      <img src="./products/spigot pin.webp" alt="Spigot Pin">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Jacks & Support</span>
-      <h3 class="product-name">Spigot Pin</h3>
-      <p class="product-desc">Connecting pin for joining scaffold tubes at spigot joints. Ensures secure tube-to-tube connection in system scaffolding. Quick insertion for fast assembly.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="jacks">
-    <div class="product-img-wrap">
-      <img src="./products/lt prop.jpg" alt="LT Prop">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Jacks & Support</span>
-      <h3 class="product-name">LT Prop</h3>
-      <p class="product-desc">Light-duty telescopic prop for temporary support during construction. Adjustable height range for various support requirements. Ideal for slab props and beam supporting.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="nuts">
-    <div class="product-img-wrap">
-      <img src="./products/stub pin with wedge.jpg" alt="Stub Pin With Wedge">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
-      <h3 class="product-name">Stub Pin With Wedge</h3>
-      <p class="product-desc">Stub pin with integrated wedge for secure locking in cuplock and system scaffolding. Provides tamper-resistant connection. Wedge mechanism ensures tight fit.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="nuts">
-    <div class="product-img-wrap">
-      <img src="./products/gugu machine.jpg" alt="Gugu Machine">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
-      <h3 class="product-name">Gugu Machine</h3>
-      <p class="product-desc">Industrial Gugu machine for forming and fixing scaffolding components. Used for pressing and shaping metal parts. Essential for custom scaffolding solutions.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="nuts">
-    <div class="product-img-wrap">
-      <img src="./products/flip pin.jpg" alt="Flip Pin">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
-      <h3 class="product-name">Flip Pin</h3>
-      <p class="product-desc">Spring-loaded flip pin for quick insertion and removal in scaffolding connections. Enables fast assembly without tools. Used in cuplock and frame scaffolding systems.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-
-
-  <div class="product-card" data-cat="nuts">
-    <div class="product-img-wrap">
-      <img src="./products/shuttering clamp.jpg" alt="Shuttering Clamp">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
-      <h3 class="product-name">Shuttering Clamp</h3>
-      <p class="product-desc">Formwork shuttering clamp for joining and tightening formwork panels. Provides rigid connection between adjacent panels. Quick-release lever for easy stripping.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="nuts">
-    <div class="product-img-wrap">
-      <img src="./products/joint pin.jpg" alt="Joint Pin">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
-      <h3 class="product-name">Joint Pin</h3>
-      <p class="product-desc">Internal joint pin for connecting two scaffold tubes at couplings. Inserts inside tube ends for seamless connection. Ensures smooth outer surface without protrusions.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-  <div class="product-card" data-cat="nuts">
-    <div class="product-img-wrap">
-      <img src="./products/prop nut.jpg" alt="Prop Nut">
-    </div>
-    <div class="product-info">
-      <span class="product-cat-badge">Nuts, Bolts & Pins</span>
-      <h3 class="product-name">Prop Nut</h3>
-      <p class="product-desc">Hexagonal prop nut for securing adjustable props and jacks. Fits standard prop threads for reliable height locking. Zinc-plated for rust resistance.</p>
-      <a href="#contact" class="product-enquire">Enquire →</a>
-    </div>
-  </div>
-
-</div>
-</section>
-
-<div class="gold-divider"></div>
-
-<!-- ── WHY US ── -->
-<section id="why">
-  <div class="section-tag">Why Choose Us</div>
-  <h2>Built on <em>Trust</em></h2>
-  <div class="why-grid">
-    <div class="why-card">
-      <div class="why-num">01</div>
-      <div class="why-icon">🏭</div>
-      <h3>Premium Quality</h3>
-      <p>Every product is manufactured to strict quality standards using high-grade materials for unmatched durability on construction sites.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-num">02</div>
-      <div class="why-icon">💰</div>
-      <h3>Competitive Pricing</h3>
-      <p>Direct supplier advantage means fair, transparent pricing — no middleman markups. Bulk orders get the best rates.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-num">03</div>
-      <div class="why-icon">⚡</div>
-      <h3>Fast Delivery</h3>
-      <p>Quick turnaround across South India. We understand deadlines and ensure your site never waits for materials.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-num">04</div>
-      <div class="why-icon">🤝</div>
-      <h3>Trusted by Builders</h3>
-      <p>Decades of relationships with contractors, builders, and construction firms across the region speaks for our reliability.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-num">05</div>
-      <div class="why-icon">🔧</div>
-      <h3>Complete Range</h3>
-      <p>One-stop shop for all scaffolding and shuttering accessories. Find everything you need for your project in one place.</p>
-    </div>
-    <div class="why-card">
-      <div class="why-num">06</div>
-      <div class="why-icon">📞</div>
-      <h3>Dedicated Support</h3>
-      <p>Our team is always available to assist with product selection, technical queries, and custom order requirements.</p>
-    </div>
-  </div>
-</section>
-
-<div class="gold-divider"></div>
-
-<!-- ── INDUSTRIES ── -->
-<section id="industries">
-  <div class="section-tag">Industries We Serve</div>
-  <h2>Trusted Across <em>Sectors</em></h2>
-  <div class="industries-grid">
-    <div class="industry-card">
-      <span class="industry-icon">🏗️</span>
-      <h3>Construction</h3>
-    </div>
-    <div class="industry-card">
-      <span class="industry-icon">🏢</span>
-      <h3>Real Estate</h3>
-    </div>
-    <div class="industry-card">
-      <span class="industry-icon">🏭</span>
-      <h3>Industrial</h3>
-    </div>
-    <div class="industry-card">
-      <span class="industry-icon">🌉</span>
-      <h3>Infrastructure</h3>
-    </div>
-  </div>
-</section>
-
-<div class="gold-divider"></div>
-
-<!-- ── CONTACT ── -->
-<section id="contact">
-  <div class="section-tag">Get In Touch</div>
-  <h2>Let's Build <em>Together</em></h2>
-  <p class="section-sub">Have a project in mind? Need a custom quote? Reach out and our team will get back to you within 24 hours.</p>
-  <div class="contact-grid">
-    <div class="contact-info">
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-        <div>
-          <h4>Address</h4>
-          <p>107, Ranga Konar St, Kattoor Main, Kattoor, Ram Nagar<br>Coimbatore, Tamil Nadu 641009</p>
+      <!-- Contact details -->
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>107, Ranga Konar St, Kattoor Main, Kattoor,<br>Ram Nagar, Coimbatore, Tamil Nadu 641009</p>
+          </div>
         </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-        <div>
-          <h4>Phone / WhatsApp</h4>
-          <p>
-            <a href="tel:+917200575352" style="color:inherit;text-decoration:underline;">+91 7200575352</a><br>
-            <a href="tel:+918838006319" style="color:inherit;text-decoration:underline;">+91 8838006319</a><br>
-            WhatsApp: <a href="https://wa.me/918838006319" style="color:inherit;text-decoration:underline;">+91 8838006319</a>
-          </p>
-          <p style="font-size:13px;color:rgba(0,0,0,0.65);margin-top:6px;">Available for quick enquiries and bulk order discussions</p>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Phone / WhatsApp</h4>
+            <p><a href="tel:+917200575352">+91 7200575352</a><br><a href="tel:+918838006319">+91 8838006319</a></p>
+          </div>
         </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">✉️</div>
-        <div>
-          <h4>Email</h4>
-          <p><a href="mailto:crescent.syn53@gmail.com" style="color:inherit;text-decoration:underline;">crescent.syn53@gmail.com</a></p>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p><a href="mailto:crescent.syn53@gmail.com">crescent.syn53@gmail.com</a></p>
+          </div>
         </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">🕐</div>
-        <div>
-          <h4>Hours</h4>
-          <p>Monday – Saturday<br>9:00 AM – 8:00 PM IST</p>
-        </div>
-      </div>
-      <div class="contact-item">
-        
-        <div>
-         
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <h4>Hours</h4>
+            <p>Monday – Saturday · 9:00 AM – 8:00 PM IST</p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- RIGHT — Enquiry Form -->
     <form class="contact-form" onsubmit="return sendEmail(event)">
       <div class="form-row">
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" name="name" required>
-        </div>
-        <div class="form-group">
-          <label>Phone</label>
-          <input type="tel" name="phone" required>
-        </div>
+        <div class="form-group"><label>Your Name</label><input type="text" name="name" placeholder="Full name" required></div>
+        <div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required></div>
       </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" required>
-      </div>
-      <div class="form-group">
-        <label>Product Interest</label>
-        <input type="text" name="product" placeholder="Tell us what you need...">
-      </div>
-      <div class="form-group">
-        <label>Message</label>
-        <textarea name="message" placeholder="Tell us about your project requirements..." required></textarea>
-      </div>
-      <button type="submit" class="form-submit">Send Message</button>
+      <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required></div>
+      <div class="form-group"><label>Product Interest</label><input type="text" name="product" placeholder="e.g. Tie Rod, Anchor Nut, Couplers..."></div>
+      <div class="form-group"><label>Message</label><textarea name="message" placeholder="Tell us about your project — quantity, delivery location, timeline..." required></textarea></div>
+      <button type="submit" class="form-submit">Send Enquiry →</button>
     </form>
+
   </div>
 </section>
 
@@ -1121,22 +845,23 @@
   <div class="footer-top">
     <div class="footer-brand">
       <h3>CRESCENT SYNDICATE</h3>
-      <p>Premium scaffolding accessories and construction hardware supplier based in Coimbatore, Tamil Nadu. Serving builders and contractors across South India with quality you can trust.</p>
-      <div class="footer-tagline">Quality · Trust · Safety</div>
+      <p>Premium scaffolding accessories and construction hardware supplier based in Coimbatore, Tamil Nadu. Serving builders and contractors across South India.</p>
+      <div class="footer-tagline">Quality · Trust · Safety — Turning Vision Into Success</div>
     </div>
     <div class="footer-col">
       <h4>Quick Links</h4>
       <ul>
-        <li><a href="#about">About Us</a></li>
         <li><a href="#products">Products</a></li>
         <li><a href="#why">Why Us</a></li>
+        <li><a href="#industries">Industries</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="Catalogue syndicate.pdf" download>Download Catalogue</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="#">107, Ranga Konar St, Kattoor Main, Kattoor, Ram Nagar, Coimbatore 641009</a></li>
+        <li><a href="#">107, Ranga Konar St, Kattoor, Coimbatore 641009</a></li>
         <li><a href="tel:+917200575352">+91 7200575352</a></li>
         <li><a href="tel:+918838006319">+91 8838006319</a></li>
         <li><a href="mailto:crescent.syn53@gmail.com">crescent.syn53@gmail.com</a></li>
@@ -1145,101 +870,216 @@
   </div>
   <div class="footer-bottom">
     <p>© 2025 <span>Crescent Syndicate</span>. All rights reserved.</p>
-    <p>Designed with precision for the construction industry.</p>
+    <p>Coimbatore, Tamil Nadu · South India</p>
   </div>
 </footer>
 
 <script>
-  // Product filter
-  function filterProducts(cat, btn) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    const cards = document.querySelectorAll('.product-card');
-    let count = 0;
-    cards.forEach(card => {
-      if (cat === 'all' || card.dataset.cat === cat) {
-        card.classList.add('visible');
-        count++;
-      } else {
-        card.classList.remove('visible');
-      }
-    });
-    document.getElementById('prod-count').textContent = count;
-  }
+// Quick Search
+function openSearch() {
+  const searchBox = document.getElementById('quickSearch');
+  const input = document.getElementById('searchInput');
+  const results = document.getElementById('searchResults');
 
-  // Show all products on load and wire up enquire buttons
-  document.addEventListener('DOMContentLoaded', () => {
-    // show products and update count
-    document.querySelectorAll('.product-card').forEach(c => c.classList.add('visible'));
-    document.getElementById('prod-count').textContent = document.querySelectorAll('.product-card').length;
+  searchBox.classList.add('open');
 
-    // Initialize EmailJS with your public key
-    try {
-      if (window.emailjs && typeof emailjs.init === 'function') {
-        emailjs.init('5ECfo5zCJXqi5D_qw');
-      }
-    } catch (err) { console.warn('EmailJS init skipped', err); }
+  // Reset every time opened
+  input.value = '';
+  results.innerHTML = '';
 
-    // Prefill contact form when a product's Enquire link is clicked
-    document.querySelectorAll('.product-enquire').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const card = btn.closest('.product-card');
-        const name = card ? (card.querySelector('.product-name')?.textContent || '').trim() : '';
-        const productSelect = document.querySelector('form.contact-form select[name="product"]');
-        if (productSelect && name) {
-          // try to find matching option
-          let opt = Array.from(productSelect.options).find(o => o.textContent.trim() === name);
-          if (!opt) {
-            // insert as first option
-            opt = document.createElement('option');
-            opt.text = name;
-            opt.value = name;
-            productSelect.add(opt, productSelect.options[0]);
-          }
-          productSelect.value = opt.value;
-        }
-        // scroll to contact
-        const contactEl = document.getElementById('contact');
-        if (contactEl) contactEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // focus name input
-        const nameInput = document.querySelector('form.contact-form input[name="name"]');
-        if (nameInput) nameInput.focus();
-      });
-    });
+  input.focus();
+}
+function closeSearch() {
+  document.getElementById('quickSearch').classList.remove('open');
+
+  // Clear search input
+  const input = document.getElementById('searchInput');
+  const results = document.getElementById('searchResults');
+
+  input.value = '';
+  results.innerHTML = '';
+}
+// Quick Search (UPDATED)
+
+function searchProducts() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const results = document.getElementById('searchResults');
+  results.innerHTML = '';
+
+  if (query.length < 2) return;
+
+  const cards = document.querySelectorAll('.product-card');
+  let found = [];
+
+  cards.forEach(card => {
+    const name = card.querySelector('.product-name')?.textContent || '';
+    const desc = card.querySelector('.product-desc')?.textContent || '';
+    const cat = card.querySelector('.product-cat-badge')?.textContent || '';
+
+    if (
+      name.toLowerCase().includes(query) ||
+      desc.toLowerCase().includes(query)
+    ) {
+      found.push({ name, desc, cat });
+    }
   });
 
-  // Mobile menu toggle
-  function toggleMenu() {
-    const links = document.querySelector('.nav-links');
-    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+  found.forEach(p => {
+    results.innerHTML += `
+      <div class="quick-result" onclick="selectProduct(\`${p.name}\`)">
+        <h4>${p.name.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`)}</h4>
+        <p>${p.cat} · ${p.desc}</p>
+      </div>
+    `;
+  });
+
+  // No results message
+  if (found.length === 0) {
+    results.innerHTML = `<div class="quick-result"><p>No products found</p></div>`;
   }
 
-  // Contact form — sends with EmailJS when configured
-  // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' and call emailjs.init('YOUR_PUBLIC_KEY') above
-  function sendEmail(e) {
-    e.preventDefault();
-    const form = e.target;
-    const serviceID = 'service_pm4hali';
-    const templateID = 'template_yo4sxek';
-
-    if (window.emailjs && typeof emailjs.sendForm === 'function') {
-      emailjs.sendForm(serviceID, templateID, form)
-        .then(function() {
-          alert('Thank you — your message was sent successfully.');
-          form.reset();
-        }, function(error) {
-          console.error('EmailJS error:', error);
-          alert('Failed to send message. Please try again or contact us at crescent.syn53@gmail.com');
-        });
-    } else {
-      // Fallback: inform user to configure EmailJS
-      alert('Email service is not configured. Please add your EmailJS keys to the script.');
-      // keep form data so user can copy/paste
+  // ENTER key support
+  document.getElementById('searchInput').onkeydown = function(e) {
+    if (e.key === 'Enter') {
+      const first = document.querySelector('.quick-result');
+      if (first) first.click();
     }
-    return false;
-  }
-</script>
+  };
+}
 
+function selectProduct(name) {
+  closeSearch();
+
+  document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.product-card');
+
+    // Reset visibility
+    cards.forEach(c => c.classList.add('visible'));
+
+    let found = false;
+
+    cards.forEach(card => {
+      const productName = card.querySelector('.product-name')?.textContent?.trim();
+
+      if (productName === name) {
+        found = true;
+
+        // Auto-select category tab
+        const category = card.dataset.cat;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        const matchingTab = document.querySelector(`.tab[onclick*="${category}"]`);
+        if (matchingTab) matchingTab.classList.add('active');
+
+        // Scroll to product
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Highlight
+        card.style.outline = '2px solid #C8920A';
+        card.style.transition = '0.3s';
+
+        setTimeout(() => {
+          card.style.outline = '';
+        }, 2000);
+      }
+    });
+
+    const visibleCount = document.querySelectorAll('.product-card.visible').length;
+    document.getElementById('prod-count').textContent = visibleCount;
+
+  }, 400);
+}
+// Dark Mode Toggle
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
+
+// Sticky Bottom Bar (show after 3 seconds)
+setTimeout(() => { document.getElementById('stickyBar').classList.add('show'); document.querySelector('.wa-quote-btn').style.bottom = '90px'; }, 3000);
+function closeStickyBar() { document.getElementById('stickyBar').classList.remove('show'); document.querySelector('.wa-quote-btn').style.bottom = '24px'; localStorage.setItem('stickyBarClosed','true'); }
+if (localStorage.getItem('stickyBarClosed')) document.getElementById('stickyBar').classList.remove('show');
+
+// Product filter
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.product-card');
+  let count = 0;
+  cards.forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.classList.add('visible'); count++;
+    } else {
+      card.classList.remove('visible');
+    }
+  });
+  document.getElementById('prod-count').textContent = count;
+}
+
+// On load
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.product-card').forEach(c => c.classList.add('visible'));
+  document.getElementById('prod-count').textContent = document.querySelectorAll('.product-card').length;
+
+  try {
+    if (window.emailjs) emailjs.init('5ECfo5zCJXqi5D_qw');
+  } catch(e){}
+
+  // Enquire button prefills product field
+  document.querySelectorAll('.product-enquire').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const name = btn.closest('.product-card')?.querySelector('.product-name')?.textContent?.trim() || '';
+      const field = document.querySelector('form.contact-form input[name="product"]');
+      if (field && name) field.value = name;
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => document.querySelector('form input[name="name"]')?.focus(), 600);
+    });
+  });
+});
+
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Navbar shrink on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').style.padding = window.scrollY > 60 ? '10px 60px' : '16px 60px';
+});
+
+// EmailJS
+function sendEmail(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('.form-submit');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  if (window.emailjs) {
+    emailjs.sendForm('service_pm4hali', 'template_yo4sxek', form)
+      .then(() => {
+        btn.textContent = '✓ Sent! We\'ll contact you soon.';
+        btn.style.background = '#2A7A2A';
+        form.reset();
+        setTimeout(() => { btn.textContent = 'Send Enquiry →'; btn.style.background = ''; btn.disabled = false; }, 4000);
+      }, (err) => {
+        console.error(err);
+        btn.textContent = 'Send Enquiry →';
+        btn.disabled = false;
+        alert('Failed to send. Please call us directly at +91 8838006319');
+      });
+  } else {
+    btn.textContent = 'Send Enquiry →';
+    btn.disabled = false;
+    alert('Please call us at +91 8838006319 or email crescent.syn53@gmail.com');
+  }
+  return false;
+}
+</script>
 </body>
 </html>
