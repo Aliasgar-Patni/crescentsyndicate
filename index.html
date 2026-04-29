@@ -33,8 +33,14 @@ body{background:var(--dark);color:var(--white);font-family:'Outfit',sans-serif;o
 ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
 
 /* ── QUICK SEARCH ── */
-.search-toggle{background:none;border:none;cursor:pointer;font-size:18px;color:var(--gray);transition:0.3s;}
-.search-toggle:hover{color:var(--gold);}
+.search-toggle{
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;border:1px solid rgba(200,147,10,0.35);
+  cursor:pointer;color:var(--gray);padding:7px 14px;
+  font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;transition:0.25s;
+}
+.search-toggle:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
 .quick-search{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(45,34,24,0.95);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
 .quick-search.open{display:flex;}
 .quick-search-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;}
@@ -46,8 +52,14 @@ body{background:var(--dark);color:var(--white);font-family:'Outfit',sans-serif;o
 .quick-result p{font-size:12px;color:var(--gray);}
 
 /* ── DARK MODE TOGGLE ── */
-.theme-toggle{background:none;border:none;cursor:pointer;font-size:18px;color:var(--gray);transition:0.3s;margin-left:16px;}
-.theme-toggle:hover{color:var(--gold);}
+.theme-toggle{
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;border:1px solid rgba(200,147,10,0.35);
+  cursor:pointer;color:var(--gray);padding:7px 14px;
+  font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;transition:0.25s;
+}
+.theme-toggle:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
 body.dark-mode{--dark:#1a1510;--dark2:#2a2218;--dark3:#3a3020;--dark4:#4a4030;--white:#FBF7F0;--gray:#a09080;}
 body.dark-mode nav{background:rgba(26,21,16,0.97);}
 body.dark-mode .mobile-menu{background:rgba(26,21,16,0.98);}
@@ -82,7 +94,7 @@ body.dark-mode .contact-item a{color:#ccc;}
 nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:16px 60px;
+  padding:14px 40px;
   background:rgba(251,247,240,0.97);
   backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(200,147,10,0.2);
@@ -90,7 +102,7 @@ nav{
 }
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold);letter-spacing:2px;text-decoration:none;}
 .nav-logo span{color:var(--white);}
-.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links{display:flex;gap:24px;list-style:none;}
 .nav-links a{color:var(--gray);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.3s;}
 .nav-links a:hover{color:var(--gold);}
 .nav-cta{background:var(--gold);color:#fff;border:none;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:0.3s;text-decoration:none;}
@@ -363,12 +375,14 @@ footer{background:var(--dark);border-top:1px solid rgba(200,147,10,0.2);padding:
     <li><a href="#industries">Industries</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="search-toggle" onclick="openSearch()" title="Search Products">🔍</button>
-<button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
-<a href="#contact" class="nav-cta">Get Quote</a>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="search-toggle" id="searchBtn" onclick="openSearch()">🔍 Search</button>
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 Dark</button>
+    <a href="#contact" class="nav-cta">Get Quote</a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <!-- Mobile Nav -->
@@ -992,10 +1006,18 @@ function selectProduct(name) {
 }
 // Dark Mode Toggle
 function toggleTheme() {
-  document.body.classList.toggle('dark-mode');
-  localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+  const isDark = document.body.classList.toggle('dark-mode');
+  localStorage.setItem('darkMode', isDark);
+  const btn = document.getElementById('themeBtn');
+  if (btn) btn.innerHTML = isDark ? '☀️ Light' : '🌙 Dark';
 }
-if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
+if (localStorage.getItem('darkMode') === 'true') {
+  document.body.classList.add('dark-mode');
+  document.addEventListener('DOMContentLoaded', () => {
+    const b = document.getElementById('themeBtn');
+    if (b) b.innerHTML = '☀️ Light';
+  });
+}
 
 // Sticky Bottom Bar (show after 3 seconds)
 setTimeout(() => { document.getElementById('stickyBar').classList.add('show'); document.querySelector('.wa-quote-btn').style.bottom = '90px'; }, 3000);
