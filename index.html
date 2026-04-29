@@ -33,33 +33,108 @@ body{background:var(--dark);color:var(--white);font-family:'Outfit',sans-serif;o
 ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
 
 /* ── QUICK SEARCH ── */
-.search-toggle{
-  display:inline-flex;align-items:center;gap:6px;
-  background:transparent;border:1px solid rgba(200,147,10,0.35);
-  cursor:pointer;color:var(--gray);padding:7px 14px;
-  font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;
-  letter-spacing:1px;text-transform:uppercase;transition:0.25s;
+.search-toggle{background:none;border:none;cursor:pointer;font-size:13px;color:var(--gray);transition:0.3s;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:0.5px;display:flex;align-items:center;gap:4px;}
+.search-toggle:hover{color:var(--gold);}
+/* ── SEARCH OVERLAY ── */
+.quick-search{
+  position:fixed;inset:0;
+  background:rgba(14,10,6,0.97);
+  backdrop-filter:blur(10px);
+  z-index:9000;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  padding:80px 20px 40px;
+  overflow-y:auto;
 }
-.search-toggle:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
-.quick-search{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(45,34,24,0.95);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
 .quick-search.open{display:flex;}
-.quick-search-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;}
-.quick-search input{width:100%;max-width:600px;padding:18px 24px;font-size:18px;border:none;outline:none;background:#fff;color:var(--white);}
-.quick-search-results{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);margin-top:60px;width:100%;max-width:600px;max-height:300px;overflow-y:auto;background:#fff;border-radius:8px;}
-.quick-result{padding:14px 20px;border-bottom:1px solid var(--dark3);cursor:pointer;transition:0.2s;}
-.quick-result:hover{background:var(--dark2);}
-.quick-result h4{font-size:15px;color:var(--white);margin-bottom:4px;}
-.quick-result p{font-size:12px;color:var(--gray);}
+.quick-search-close{
+  position:absolute;top:18px;right:20px;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.6);font-size:20px;cursor:pointer;
+  width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+  transition:0.2s;
+}
+.quick-search-close:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
+.qs-wrap{width:100%;max-width:620px;display:flex;flex-direction:column;gap:0;}
+.qs-label{
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(200,147,10,0.7);font-weight:700;margin-bottom:10px;
+}
+.qs-input-row{
+  display:flex;gap:0;border:2px solid var(--gold);
+  background:#fff;overflow:hidden;
+}
+.qs-input-row input{
+  flex:1;padding:16px 20px;font-size:17px;
+  border:none;outline:none;background:transparent;
+  color:#2D2218;font-family:'Outfit',sans-serif;
+}
+.qs-input-row input::placeholder{color:#aaa;}
+.qs-results{
+  width:100%;background:#fff;
+  border:1px solid rgba(200,147,10,0.2);border-top:none;
+  max-height:400px;overflow-y:auto;
+}
+.qs-section-label{
+  padding:8px 18px;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:#aaa;font-weight:600;
+  background:#fafafa;border-bottom:1px solid #f0e8d8;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.qs-section-label button{
+  background:none;border:none;font-size:11px;color:var(--gold);
+  cursor:pointer;font-family:'Outfit',sans-serif;letter-spacing:1px;
+  text-transform:uppercase;font-weight:600;
+}
+.qs-section-label button:hover{text-decoration:underline;}
+.quick-result{
+  padding:12px 18px;border-bottom:1px solid #f5ede0;
+  cursor:pointer;transition:0.2s;
+  display:flex;align-items:center;gap:14px;
+}
+.quick-result:hover,.quick-result.qs-selected{background:#FDF6EC;}
+.quick-result.qs-selected{border-left:3px solid var(--gold);}
+.qr-img{
+  width:44px;height:44px;flex-shrink:0;
+  background:#f5f0e8;border:1px solid #e8dcc8;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.qr-img img{width:100%;height:100%;object-fit:contain;}
+.qr-body{flex:1;min-width:0;}
+.qr-name{font-size:14px;font-weight:600;color:#2D2218;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.qr-name mark{background:rgba(200,147,10,0.25);color:#2D2218;border-radius:2px;padding:0 1px;}
+.qr-meta{font-size:11px;color:#999;margin-top:2px;letter-spacing:0.5px;}
+.qr-badge{
+  flex-shrink:0;font-size:9px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;padding:3px 8px;
+}
+.qr-badge.popular{background:rgba(200,147,10,0.12);color:var(--gold);}
+.qr-badge.recent{background:rgba(100,100,200,0.1);color:#6666bb;}
+.qr-badge.result{background:rgba(34,197,94,0.1);color:#16a34a;}
+.qs-empty{
+  padding:32px 20px;text-align:center;
+}
+.qs-empty p{font-size:14px;color:#999;margin-bottom:12px;}
+.qs-empty-suggestions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.qs-empty-suggestions button{
+  background:rgba(200,147,10,0.08);border:1px solid rgba(200,147,10,0.25);
+  color:var(--gold);padding:5px 14px;font-size:12px;cursor:pointer;
+  font-family:'Outfit',sans-serif;transition:0.2s;
+}
+.qs-empty-suggestions button:hover{background:var(--gold);color:#fff;}
+.qs-hint{
+  text-align:center;margin-top:14px;
+  font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:1px;
+}
+.qs-hint kbd{
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);
+  padding:2px 6px;border-radius:3px;font-size:10px;margin:0 3px;
+}
 
 /* ── DARK MODE TOGGLE ── */
-.theme-toggle{
-  display:inline-flex;align-items:center;gap:6px;
-  background:transparent;border:1px solid rgba(200,147,10,0.35);
-  cursor:pointer;color:var(--gray);padding:7px 14px;
-  font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;
-  letter-spacing:1px;text-transform:uppercase;transition:0.25s;
-}
-.theme-toggle:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
+.theme-toggle{background:none;border:none;cursor:pointer;font-size:13px;color:var(--gray);transition:0.3s;margin-left:16px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:0.5px;display:flex;align-items:center;gap:4px;}
+.theme-toggle:hover{color:var(--gold);}
 body.dark-mode{--dark:#1a1510;--dark2:#2a2218;--dark3:#3a3020;--dark4:#4a4030;--white:#FBF7F0;--gray:#a09080;}
 body.dark-mode nav{background:rgba(26,21,16,0.97);}
 body.dark-mode .mobile-menu{background:rgba(26,21,16,0.98);}
@@ -94,7 +169,7 @@ body.dark-mode .contact-item a{color:#ccc;}
 nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:14px 40px;
+  padding:16px 60px;
   background:rgba(251,247,240,0.97);
   backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(200,147,10,0.2);
@@ -102,7 +177,7 @@ nav{
 }
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold);letter-spacing:2px;text-decoration:none;}
 .nav-logo span{color:var(--white);}
-.nav-links{display:flex;gap:24px;list-style:none;}
+.nav-links{display:flex;gap:32px;list-style:none;}
 .nav-links a{color:var(--gray);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.3s;}
 .nav-links a:hover{color:var(--gold);}
 .nav-cta{background:var(--gold);color:#fff;border:none;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:0.3s;text-decoration:none;}
@@ -347,9 +422,24 @@ footer{background:var(--dark);border-top:1px solid rgba(200,147,10,0.2);padding:
 
 <!-- Quick Search Overlay -->
 <div class="quick-search" id="quickSearch">
-  <button class="quick-search-close" onclick="closeSearch()">&times;</button>
-  <input type="text" id="searchInput" placeholder="Search products... (e.g. Tie Rod, Anchor Nut)" onkeyup="searchProducts()">
-  <div class="quick-search-results" id="searchResults"></div>
+  <button class="quick-search-close" onclick="closeSearch()">✕</button>
+  <div class="qs-wrap">
+    <div class="qs-label">🔍 Search Products</div>
+    <div class="qs-input-row">
+      <input type="text" id="searchInput"
+        placeholder="Type product name... e.g. Tie Rod, Coupler"
+        oninput="searchProducts()"
+        autocomplete="off"
+        spellcheck="false">
+
+    </div>
+    <div class="qs-results" id="searchResults"></div>
+  </div>
+  <div class="qs-hint">
+    <kbd>↑</kbd><kbd>↓</kbd> navigate &nbsp;·&nbsp;
+    <kbd>Enter</kbd> select &nbsp;·&nbsp;
+    <kbd>Esc</kbd> close
+  </div>
 </div>
 
 <!-- Sticky Bottom Bar -->
@@ -375,14 +465,12 @@ footer{background:var(--dark);border-top:1px solid rgba(200,147,10,0.2);padding:
     <li><a href="#industries">Industries</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:8px;">
-    <button class="search-toggle" id="searchBtn" onclick="openSearch()">🔍 Search</button>
-    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 Dark</button>
-    <a href="#contact" class="nav-cta">Get Quote</a>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+  <button class="search-toggle" onclick="openSearch()" title="Search Products">🔍 Search</button>
+<button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙 Dark</button>
+<a href="#contact" class="nav-cta">Get Quote</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- Mobile Nav -->
@@ -812,7 +900,7 @@ footer{background:var(--dark);border-top:1px solid rgba(200,147,10,0.2);padding:
           <div class="contact-icon">📍</div>
           <div>
             <h4>Address</h4>
-            <p>107, Ranga Konar St, Kattoor Main, Kattoor,<br>Ram Nagar, Coimbatore, Tamil Nadu 641009</p>
+            <a href="https://maps.google.com/?q=107+Ranga+Konar+St+Kattoor+Ram+Nagar+Coimbatore+Tamil+Nadu+641009" target="_blank">107, Ranga Konar St, Kattoor Main, Kattoor,<br>Ram Nagar, Coimbatore, Tamil Nadu 641009</a>
           </div>
         </div>
         <div class="contact-item">
@@ -875,7 +963,7 @@ footer{background:var(--dark);border-top:1px solid rgba(200,147,10,0.2);padding:
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="#">107, Ranga Konar St, Kattoor, Coimbatore 641009</a></li>
+        <li><a href="https://maps.google.com/?q=107+Ranga+Konar+St+Kattoor+Ram+Nagar+Coimbatore+Tamil+Nadu+641009" target="_blank">107, Ranga Konar St, Kattoor, Coimbatore 641009</a></li>
         <li><a href="tel:+917200575352">+91 7200575352</a></li>
         <li><a href="tel:+918838006319">+91 8838006319</a></li>
         <li><a href="mailto:crescent.syn53@gmail.com">crescent.syn53@gmail.com</a></li>
@@ -890,133 +978,308 @@ footer{background:var(--dark);border-top:1px solid rgba(200,147,10,0.2);padding:
 
 <script>
 // Quick Search
-function openSearch() {
-  const searchBox = document.getElementById('quickSearch');
-  const input = document.getElementById('searchInput');
-  const results = document.getElementById('searchResults');
+// ═══════════════════════════════════════════════════════
+// SEARCH ENGINE — Features 1–12
+// ═══════════════════════════════════════════════════════
 
-  searchBox.classList.add('open');
+// Product data with images for preview (Feature 10)
+const SEARCH_PRODUCTS = [
+  { name:'Tie Rod',              cat:'featured', img:'./products/tie rod.webp',         keywords:['tie rod','rod','formwork','thread'] },
+  { name:'Anchor Nut (2 Wing)',  cat:'featured', img:'./products/anchor  nut.webp',     keywords:['anchor','nut','wing','2 wing'] },
+  { name:'Wing Nut',             cat:'featured', img:'./products/wing nut.jpg',          keywords:['wing','nut','hand tighten'] },
+  { name:'Top Cup (Cast & Forged)', cat:'cups',  img:'./products/top cup.png',           keywords:['top','cup','cast','forged','cuplock'] },
+  { name:'Bottom Cup',           cat:'cups',     img:'./products/bottom cup.jpg',        keywords:['bottom','cup','cuplock'] },
+  { name:'Ledger Blade',         cat:'cups',     img:'./products/ledger blade.jpg',      keywords:['ledger','blade','cup'] },
+  { name:'Waller Plate',         cat:'cups',     img:'./products/waller plate.jpg',      keywords:['waller','plate','base','bearing'] },
+  { name:'Vertical Pipe',        cat:'pipes',    img:'./products/vertical pipe.jpg',     keywords:['vertical','pipe','tube','standard'] },
+  { name:'Ledger Pipe',          cat:'pipes',    img:'./products/ledger pipw.webp',      keywords:['ledger','pipe','horizontal','tube'] },
+  { name:'Forge Fix Coupler',    cat:'couplers', img:'./products/forged fix.webp',       keywords:['forge','fix','coupler','right angle','90'] },
+  { name:'Forge Swivel',         cat:'couplers', img:'./products/forged swivel.avif',    keywords:['forge','swivel','coupler','rotate','360'] },
+  { name:'Sleeve Coupler',       cat:'couplers', img:'./products/sleeve coupler.webp',   keywords:['sleeve','coupler','join','end to end'] },
+  { name:'Sheet Fix',            cat:'couplers', img:'./products/sheet fix.webp',        keywords:['sheet','fix','clamp','panel'] },
+  { name:'Sheet Swivel',         cat:'couplers', img:'./products/sheet swivel.jpg',      keywords:['sheet','swivel','clamp','angle'] },
+  { name:'GOGO Clamp',           cat:'couplers', img:'./products/gogo clamp.webp',       keywords:['gogo','clamp','tube','connect'] },
+  { name:'Water Stopper',        cat:'couplers', img:'./products/water stopper.webp',    keywords:['water','stopper','seal','leakage'] },
+  { name:'Prop Sleeve',          cat:'jacks',    img:'./products/prop sleeve.jpg',       keywords:['prop','sleeve','extend','adjust'] },
+  { name:'U Head Jack',          cat:'jacks',    img:'./products/u head jack.jpg',       keywords:['u head','jack','formwork','beam','slab'] },
+  { name:'Base Jack',            cat:'jacks',    img:'./products/base jack.jpg',         keywords:['base','jack','prop','adjust','ground'] },
+  { name:'Spigot Pin',           cat:'jacks',    img:'./products/spigot pin.webp',       keywords:['spigot','pin','connect','joint'] },
+  { name:'LT Prop',              cat:'jacks',    img:'./products/lt prop.jpg',           keywords:['lt','prop','telescopic','slab'] },
+  { name:'Stub Pin With Wedge',  cat:'nuts',     img:'./products/stub pin with wedge.jpg', keywords:['stub','pin','wedge','lock','cuplock'] },
+  { name:'Flip Pin',             cat:'nuts',     img:'./products/flip pin.jpg',          keywords:['flip','pin','spring','quick','tool free'] },
+  { name:'Shuttering Clamp',     cat:'nuts',     img:'./products/shuttering clamp.jpg',  keywords:['shuttering','clamp','formwork','panel'] },
+  { name:'Joint Pin',            cat:'nuts',     img:'./products/joint pin.jpg',         keywords:['joint','pin','connect','tube'] },
+  { name:'Prop Nut',             cat:'nuts',     img:'./products/prop nut.jpg',          keywords:['prop','nut','hex','zinc'] },
+  { name:'Gugu Machine',         cat:'nuts',     img:'./products/gugu machine.jpg',      keywords:['gugu','machine','press','form'] },
+];
 
-  // Reset every time opened
-  input.value = '';
-  results.innerHTML = '';
+// Category keyword map (Feature 11)
+const CAT_KEYWORDS = {
+  pipe:'pipes', pipes:'pipes', tube:'pipes', tubes:'pipes', standard:'pipes',
+  nut:'nuts', nuts:'nuts', bolt:'nuts', bolts:'nuts', pin:'nuts', pins:'nuts',
+  coupler:'couplers', couplers:'couplers', clamp:'couplers', clamps:'couplers',
+  jack:'jacks', jacks:'jacks', prop:'jacks', props:'jacks', support:'jacks',
+  cup:'cups', cups:'cups', plate:'cups', plates:'cups', blade:'cups',
+  tie:'featured', anchor:'featured', wing:'featured', featured:'featured',
+  rod:'featured', formwork:'featured', shuttering:'couplers',
+};
 
-  input.focus();
+// Keyboard selection index
+let qsIndex = -1;
+
+// ─── Feature 1: Recent Searches ───────────────────────────
+function getRecents() {
+  try { return JSON.parse(localStorage.getItem('cs_recent') || '[]'); } catch { return []; }
 }
+function saveRecent(q) {
+  if (!q || q.trim().length < 2) return;
+  let r = getRecents().filter(x => x.toLowerCase() !== q.toLowerCase());
+  r.unshift(q.trim());
+  localStorage.setItem('cs_recent', JSON.stringify(r.slice(0, 8)));
+}
+function clearRecents() {
+  localStorage.removeItem('cs_recent');
+  showSuggestions();
+}
+
+// ─── Feature 7: Open / Reset ──────────────────────────────
+function openSearch() {
+  const box = document.getElementById('quickSearch');
+  const inp = document.getElementById('searchInput');
+  box.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  inp.value = '';
+  qsIndex = -1;
+  showSuggestions();          // Feature 2: show popular/recent on open
+  setTimeout(() => inp.focus(), 80);
+}
+
+// ─── Feature 8: Click outside to close ───────────────────
+document.addEventListener('click', function(e) {
+  const box = document.getElementById('quickSearch');
+  if (box && box.classList.contains('open')) {
+    if (e.target === box) closeSearch();
+  }
+});
+
 function closeSearch() {
   document.getElementById('quickSearch').classList.remove('open');
-
-  // Clear search input
-  const input = document.getElementById('searchInput');
-  const results = document.getElementById('searchResults');
-
-  input.value = '';
-  results.innerHTML = '';
+  document.body.style.overflow = '';
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').innerHTML = '';
+  qsIndex = -1;
 }
-// Quick Search (UPDATED)
 
-function searchProducts() {
-  const query = document.getElementById('searchInput').value.toLowerCase();
+// ─── Feature 2: Popular / Recent suggestions ──────────────
+function showSuggestions() {
   const results = document.getElementById('searchResults');
-  results.innerHTML = '';
+  const recents = getRecents();
+  let html = '';
 
-  if (query.length < 2) return;
-
-  const cards = document.querySelectorAll('.product-card');
-  let found = [];
-
-  cards.forEach(card => {
-    const name = card.querySelector('.product-name')?.textContent || '';
-    const desc = card.querySelector('.product-desc')?.textContent || '';
-    const cat = card.querySelector('.product-cat-badge')?.textContent || '';
-
-    if (
-      name.toLowerCase().includes(query) ||
-      desc.toLowerCase().includes(query)
-    ) {
-      found.push({ name, desc, cat });
-    }
-  });
-
-  found.forEach(p => {
-    results.innerHTML += `
-      <div class="quick-result" onclick="selectProduct(\`${p.name}\`)">
-        <h4>${p.name.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`)}</h4>
-        <p>${p.cat} · ${p.desc}</p>
-      </div>
-    `;
-  });
-
-  // No results message
-  if (found.length === 0) {
-    results.innerHTML = `<div class="quick-result"><p>No products found</p></div>`;
+  if (recents.length > 0) {
+    html += `<div class="qs-section-label">
+      Recent Searches
+      <button onclick="clearRecents()">Clear</button>
+    </div>`;
+    recents.slice(0, 6).forEach((q, i) => {
+      html += `<div class="quick-result" data-index="${i}" onclick="runSearch('${q.replace(/'/g,"\'")}')">
+        <div class="qr-img" style="font-size:16px;color:#aaa;">🕐</div>
+        <div class="qr-body">
+          <div class="qr-name">${q}</div>
+          <div class="qr-meta">Recent search</div>
+        </div>
+        <span class="qr-badge recent">Recent</span>
+      </div>`;
+    });
   }
 
-  // ENTER key support
-  document.getElementById('searchInput').onkeydown = function(e) {
-    if (e.key === 'Enter') {
-      const first = document.querySelector('.quick-result');
-      if (first) first.click();
-    }
-  };
+  // Popular when no recents OR always show below
+  const popularNames = ['Tie Rod','Anchor Nut (2 Wing)','Wing Nut','Base Jack','Forge Fix Coupler','Sleeve Coupler'];
+  html += `<div class="qs-section-label">Popular Products</div>`;
+  SEARCH_PRODUCTS.filter(p => popularNames.includes(p.name)).forEach((p, i) => {
+    html += `<div class="quick-result" data-index="${recents.length + i}" onclick="selectProduct('${p.name.replace(/'/g,"\'")}')">
+      <div class="qr-img"><img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'"></div>
+      <div class="qr-body">
+        <div class="qr-name">${p.name}</div>
+        <div class="qr-meta">${p.cat}</div>
+      </div>
+      <span class="qr-badge popular">Popular</span>
+    </div>`;
+  });
+
+  results.innerHTML = html;
 }
 
-function selectProduct(name) {
-  closeSearch();
+// ─── Feature 3+4+6+9+11+12: Search with highlight + fuzzy ─
+function searchProducts() {
+  const raw = document.getElementById('searchInput').value;
+  const q = raw.toLowerCase().trim();
+  const results = document.getElementById('searchResults');
+  qsIndex = -1;
 
-  document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+  // Feature 7: show suggestions when empty
+  if (q.length === 0) { showSuggestions(); return; }
+  if (q.length < 1) { results.innerHTML = ''; return; }
+
+  // Feature 11: category keyword shortcut
+  const catHit = CAT_KEYWORDS[q] || CAT_KEYWORDS[q.split(' ')[0]];
+
+  // Feature 12: fuzzy match helper
+  function fuzzyMatch(str, query) {
+    const s = str.toLowerCase();
+    // exact
+    if (s.includes(query)) return 2;
+    // all words present
+    const words = query.split(' ').filter(Boolean);
+    if (words.every(w => s.includes(w))) return 1.5;
+    // fuzzy: allow 1-char typo per word
+    function levenshtein(a, b) {
+      const m = a.length, n = b.length;
+      const dp = Array.from({length:m+1}, (_,i) => [i, ...Array(n).fill(0)]);
+      for (let j=0;j<=n;j++) dp[0][j]=j;
+      for (let i=1;i<=m;i++) for (let j=1;j<=n;j++)
+        dp[i][j] = a[i-1]===b[j-1] ? dp[i-1][j-1] : 1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+      return dp[m][n];
+    }
+    for (const w of words) {
+      if (w.length >= 4 && levenshtein(s.substring(0, w.length+2), w) <= 1) return 1;
+    }
+    return 0;
+  }
+
+  // Feature 3: highlight helper
+  function highlight(str) {
+    if (!q) return str;
+    const safe = q.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&');
+    return str.replace(new RegExp('('+safe+')', 'gi'), '<mark>$1</mark>');
+  }
+
+  let found = [];
+  SEARCH_PRODUCTS.forEach(p => {
+    const allText = [p.name, ...p.keywords].join(' ');
+    const score = fuzzyMatch(allText, q);
+    if (score > 0) found.push({ ...p, score });
+  });
+
+  // Sort by score desc, limit to 8 (Feature 9)
+  found.sort((a,b) => b.score - a.score);
+  found = found.slice(0, 8);
+
+  if (found.length === 0) {
+    // Feature 6: empty state with suggestions
+    results.innerHTML = `
+      <div class="qs-empty">
+        <p>No products found for "<strong>${raw}</strong>"</p>
+        <div class="qs-empty-suggestions">
+          <button onclick="runSearch('Tie Rod')">Tie Rod</button>
+          <button onclick="runSearch('Anchor Nut')">Anchor Nut</button>
+          <button onclick="runSearch('Coupler')">Coupler</button>
+          <button onclick="runSearch('Base Jack')">Base Jack</button>
+          <button onclick="runSearch('Wing Nut')">Wing Nut</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = `<div class="qs-section-label">${found.length} result${found.length>1?'s':''} found</div>`;
+  found.forEach((p, i) => {
+    html += `<div class="quick-result" data-index="${i}" onclick="selectProduct('${p.name.replace(/'/g,"\'")}')">
+      <div class="qr-img"><img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'"></div>
+      <div class="qr-body">
+        <div class="qr-name">${highlight(p.name)}</div>
+        <div class="qr-meta">${p.cat}${catHit ? ' · Category match' : ''}</div>
+      </div>
+      <span class="qr-badge result">View</span>
+    </div>`;
+  });
+
+  results.innerHTML = html;
+}
+
+// Run search from a suggestion click
+function runSearch(q) {
+  document.getElementById('searchInput').value = q;
+  searchProducts();
+  document.getElementById('searchInput').focus();
+}
+
+// ─── Feature 5: Keyboard navigation ──────────────────────
+document.addEventListener('keydown', function(e) {
+  const box = document.getElementById('quickSearch');
+  if (!box || !box.classList.contains('open')) return;
+
+  const items = document.querySelectorAll('#searchResults .quick-result');
+  if (!items.length) return;
+
+  // Escape = close (also in Feature 5)
+  if (e.key === 'Escape') { closeSearch(); return; }
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    qsIndex = Math.min(qsIndex + 1, items.length - 1);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    qsIndex = Math.max(qsIndex - 1, 0);
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    const target = qsIndex >= 0 ? items[qsIndex] : items[0];
+    if (target) target.click();
+    return;
+  } else { return; }
+
+  items.forEach((el, i) => el.classList.toggle('qs-selected', i === qsIndex));
+  items[qsIndex]?.scrollIntoView({ block:'nearest' });
+});
+
+// ─── Feature 4+3: Select → auto-tab + highlight card ─────
+function selectProduct(name) {
+  saveRecent(name);   // Feature 1: save to recents
+  closeSearch();
+  document.getElementById('products').scrollIntoView({ behavior:'smooth' });
 
   setTimeout(() => {
     const cards = document.querySelectorAll('.product-card');
-
-    // Reset visibility
     cards.forEach(c => c.classList.add('visible'));
 
-    let found = false;
-
     cards.forEach(card => {
-      const productName = card.querySelector('.product-name')?.textContent?.trim();
-
-      if (productName === name) {
-        found = true;
-
-        // Auto-select category tab
-        const category = card.dataset.cat;
+      const pName = card.querySelector('.product-name')?.textContent?.trim();
+      if (pName === name) {
+        // Feature 4: auto-select correct tab
+        const cat = card.dataset.cat;
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        const matchingTab = document.querySelector(`.tab[onclick*="${category}"]`);
-        if (matchingTab) matchingTab.classList.add('active');
+        const tab = document.querySelector(`.tab[onclick*="'${cat}'"]`);
+        if (tab) tab.classList.add('active');
 
-        // Scroll to product
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Filter to show only this category
+        cards.forEach(c => {
+          c.classList.toggle('visible', c.dataset.cat === cat);
+        });
 
-        // Highlight
-        card.style.outline = '2px solid #C8920A';
-        card.style.transition = '0.3s';
-
-        setTimeout(() => {
-          card.style.outline = '';
-        }, 2000);
+        // Scroll + highlight gold ring
+        card.scrollIntoView({ behavior:'smooth', block:'center' });
+        card.style.outline = '3px solid var(--gold)';
+        card.style.boxShadow = '0 0 24px rgba(200,147,10,0.3)';
+        setTimeout(() => { card.style.outline=''; card.style.boxShadow=''; }, 2500);
       }
     });
 
-    const visibleCount = document.querySelectorAll('.product-card.visible').length;
-    document.getElementById('prod-count').textContent = visibleCount;
-
+    document.getElementById('prod-count').textContent =
+      document.querySelectorAll('.product-card.visible').length;
   }, 400);
 }
+
 // Dark Mode Toggle
 function toggleTheme() {
-  const isDark = document.body.classList.toggle('dark-mode');
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
   localStorage.setItem('darkMode', isDark);
-  const btn = document.getElementById('themeBtn');
+  const btn = document.getElementById('themeToggleBtn');
   if (btn) btn.innerHTML = isDark ? '☀️ Light' : '🌙 Dark';
 }
 if (localStorage.getItem('darkMode') === 'true') {
   document.body.classList.add('dark-mode');
-  document.addEventListener('DOMContentLoaded', () => {
-    const b = document.getElementById('themeBtn');
-    if (b) b.innerHTML = '☀️ Light';
-  });
+  const btn = document.getElementById('themeToggleBtn');
+  if (btn) btn.innerHTML = '☀️ Light';
 }
 
 // Sticky Bottom Bar (show after 3 seconds)
