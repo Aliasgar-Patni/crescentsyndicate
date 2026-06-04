@@ -1,39 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
   <url>
-    <loc>https://www.crescentsyndicate.com/</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://crescentsyndicate.com/</loc>
+    <lastmod>2025-06-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <changefreq>monthly</changefreq>
   </url>
+
+  <!-- Products Section -->
   <url>
-    <loc>https://www.crescentsyndicate.com/#about</loc>
-    <lastmod>2026-04-27</lastmod>
-    <priority>0.8</priority>
+    <loc>https://crescentsyndicate.com/#products</loc>
+    <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.crescentsyndicate.com/#products</loc>
-    <lastmod>2026-04-27</lastmod>
     <priority>0.9</priority>
-    <changefreq>monthly</changefreq>
   </url>
+
+  <!-- Why Us Section -->
   <url>
-    <loc>https://www.crescentsyndicate.com/#why</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://crescentsyndicate.com/#why</loc>
+    <lastmod>2025-06-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Industries Section -->
+  <url>
+    <loc>https://crescentsyndicate.com/#industries</loc>
+    <lastmod>2025-06-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- About Section -->
+  <url>
+    <loc>https://crescentsyndicate.com/#about-seo</loc>
+    <lastmod>2025-06-04</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
   </url>
+
+  <!-- Contact / Enquiry Section -->
   <url>
-    <loc>https://www.crescentsyndicate.com/#industries</loc>
-    <lastmod>2026-04-27</lastmod>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://www.crescentsyndicate.com/#contact</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://crescentsyndicate.com/#contact</loc>
+    <lastmod>2025-06-04</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
   </url>
+
+  <!-- Product Catalogue PDF -->
+  <url>
+    <loc>https://crescentsyndicate.com/Catalogue%20syndicate.pdf</loc>
+    <lastmod>2025-06-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>
