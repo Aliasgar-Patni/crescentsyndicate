@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.crescentsyndicate.com/sitemap.xml
+Sitemap: https://crescentsyndicate.com/sitemap.xml
+
+
+LLMs-txt: https://crescentsyndicate.com/llms.txt
