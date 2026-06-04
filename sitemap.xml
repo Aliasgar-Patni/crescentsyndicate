@@ -3,7 +3,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://crescentsyndicate.com/</loc>
+    <loc>https://www.crescentsyndicate.com/</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- Products Section -->
   <url>
-    <loc>https://crescentsyndicate.com/#products</loc>
+    <loc>https://www.crescentsyndicate.com/#products</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -19,7 +19,7 @@
 
   <!-- Why Us Section -->
   <url>
-    <loc>https://crescentsyndicate.com/#why</loc>
+    <loc>https://www.crescentsyndicate.com/#why</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
@@ -27,7 +27,7 @@
 
   <!-- Industries Section -->
   <url>
-    <loc>https://crescentsyndicate.com/#industries</loc>
+    <loc>https://www.crescentsyndicate.com/#industries</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
@@ -35,7 +35,7 @@
 
   <!-- About Section -->
   <url>
-    <loc>https://crescentsyndicate.com/#about-seo</loc>
+    <loc>https://www.crescentsyndicate.com/#about-seo</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
@@ -43,7 +43,7 @@
 
   <!-- Contact / Enquiry Section -->
   <url>
-    <loc>https://crescentsyndicate.com/#contact</loc>
+    <loc>https://www.crescentsyndicate.com/#contact</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
@@ -51,7 +51,7 @@
 
   <!-- Product Catalogue PDF -->
   <url>
-    <loc>https://crescentsyndicate.com/Catalogue%20syndicate.pdf</loc>
+    <loc>https://www.crescentsyndicate.com/Catalogue%20syndicate.pdf</loc>
     <lastmod>2025-06-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
